@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "unistd.h": "c",
+        "mlx.h": "c",
+        "keysym.h": "c",
+        "cub3d.h": "c"
+    }
+}
