@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/10 15:51:01 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:14:13 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 # define PI 3.141592
 
-# define FOV 60
+# define FOV 66
 
 enum
 {
@@ -80,6 +80,12 @@ typedef struct s_player
 	double			y2;
 	double			pos_x;
 	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			time;
+	double			old_time;
 }					t_player;
 
 typedef struct t_wall
@@ -88,6 +94,7 @@ typedef struct t_wall
 	t_pixel			pixel;
 	t_wall			wall;
 	t_img			img;
+	int				color;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			**map;
@@ -95,15 +102,23 @@ typedef struct t_wall
 	int				screen_size_y;
 	int				x_len;
 	int				y_len;
-	double			dir_x;
-	double			dir_y;
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
 }					t_data;
 
 /*						Parsing						*/
 void				create_map(t_data *data);
 
 /*						Draw						*/
+void				ft_create_img(t_data *data);
+void				ft_create_buffer_img(t_data *data);
+void				ft_put_pixel_in_image(t_data *data, int color, int x,
+						int y);
 void				ft_draw_minimap(t_data *data);
+void				ft_draw_scene(t_data *data);
+void				ft_clear_window(t_data *data);
 
 /*						Raycasting					*/
 void				ft_raycasting(t_data *data);
@@ -113,6 +128,9 @@ void				ft_move(int keysym, t_data *data);
 int					ft_is_colision(t_data *data, int direction);
 
 /*						Utils						*/
+void				ft_free(void **ptr);
 int					ft_convert(double nb);
+int					ft_inverse(t_data *data, int nb);
+int					ft_abs(int nb);
 
 #endif

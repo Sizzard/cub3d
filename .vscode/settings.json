@@ -3,6 +3,11 @@
         "unistd.h": "c",
         "mlx.h": "c",
         "keysym.h": "c",
-        "cub3d.h": "c"
+        "cub3d.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "ranges": "c",
+        "span": "c"
     }
 }

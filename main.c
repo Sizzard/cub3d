@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/10 15:42:17 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:01:12 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	on_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 		on_destroy(data);
-	if (keysym == XK_w || keysym == XK_a || keysym == XK_s || keysym == XK_d)
+	if (keysym == XK_w || keysym == XK_a || keysym == XK_s || keysym == XK_d
+		|| keysym == XK_Left || keysym == XK_Right)
 		ft_move(keysym, data);
 	return (0);
 }
@@ -133,13 +134,8 @@ void	ft_fill_image(t_data *data)
 
 void	ft_draw_scene(t_data *data)
 {
-	if (data->img.ptr)
-		mlx_destroy_image(data->mlx_ptr, data->img.ptr);
-	ft_free((void **)&data->img.ptr);
-	ft_create_img(data);
-	ft_create_buffer_img(data);
 	ft_fill_image(data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr, 0, 0);
+	// mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr,0,0);
 }
 
 void	ft_print_block(t_data *data, int x, int y)
@@ -170,22 +166,20 @@ void	ft_print_block(t_data *data, int x, int y)
 
 void	ft_draw_player(t_data *data)
 {
-	int			i;
-	int			j;
-	const int	i2 = data->player.x2 * 64;
-	const int	j2 = data->player.y2 * 64;
+	int	i;
+	int	j;
 
-	i = data->player.x1 * 64;
-	j = data->player.y1 * 64;
-	while (j < j2)
+	i = data->player.pos_x * 64;
+	j = data->player.pos_y * 64;
+	while (j < (data->player.pos_y + 1) * 64)
 	{
-		while (i < i2)
+		while (i < (data->player.pos_x + 1) * 64)
 		{
 			if (data)
 				ft_put_pixel_in_image(data, 0xf6f916, i, j);
 			i++;
 		}
-		i = data->player.x1 * 64;
+		i = data->player.pos_x * 64;
 		j++;
 	}
 }
@@ -243,11 +237,13 @@ int	main(int argc, char **argv)
 	ft_memset(&data, 0, sizeof(t_data));
 	init_data(&data);
 	create_map(&data);
-	// print_map(data.map);
+	print_map(data.map);
+	ft_create_img(&data);
+	ft_create_buffer_img(&data);
 	ft_draw_scene(&data);
-	ft_draw_minimap(&data);
 	ft_draw_walls(&data);
 	ft_raycasting(&data);
+	ft_draw_minimap(&data);
 	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy,
 		&data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &on_keypress, &data);

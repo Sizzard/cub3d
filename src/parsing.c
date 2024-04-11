@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/10 15:13:11 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:04:00 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ void	ft_find_player(t_data *data)
 		{
 			if (data->map[y][x] == 'P')
 			{
-				data->player.x1 = x;
-				data->player.y1 = y;
-				data->player.x2 = x + 0.5;
-				data->player.y2 = y + 0.5;
+				data->player.pos_x = x;
+				data->player.pos_y = y;
+				// data->player.x1 = x;
+				// data->player.y1 = y;
+				// data->player.x2 = x + 0.5;
+				// data->player.y2 = y + 0.5;
 			}
 			x++;
 		}
@@ -47,8 +49,8 @@ void	create_map(t_data *data)
 	data->map[0] = ft_strdup("111111111111111111111");
 	data->map[1] = ft_strdup("100000000000000000001");
 	data->map[2] = ft_strdup("100000000000000000001");
-	data->map[3] = ft_strdup("100000000011100000001");
-	data->map[4] = ft_strdup("10000000000P000000001");
+	data->map[3] = ft_strdup("100000000000000000P01");
+	data->map[4] = ft_strdup("100000000000000000001");
 	data->map[5] = ft_strdup("100000000000000000001");
 	data->map[6] = ft_strdup("100000000000000000001");
 	data->map[7] = ft_strdup("100000000000000000001");

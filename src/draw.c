@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 14:08:55 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/11 16:14:01 by facarval         ###   ########.fr       */
+/*   Created: 2024/04/11 14:13:09 by facarval          #+#    #+#             */
+/*   Updated: 2024/04/11 14:15:21 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_convert(double nb)
+void	ft_clear_window(t_data *data)
 {
-	return (nb);
-}
-
-int	ft_abs(int nb)
-{
-	if (nb < 0)
-		return (-nb);
-	return (nb);
-}
-
-int	ft_inverse(t_data *data, int nb)
-{
-	return (data->screen_size_x - nb);
+	int i = 0;
+	while (i < data->screen_size_x * data->screen_size_y)
+	{
+		ft_put_pixel_in_image(data, 0x000000, i, 1);
+		i++;
+	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr, 0, 0);
 }

@@ -1,7 +1,7 @@
 CFLAGS = -Wall -Wextra -Werror -g3
 MLXFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 NAME = cub3d
-SRC = src/parsing.c src/raycasting.c src/move.c src/colision.c src/utils.c\
+SRC = src/parsing.c src/raycasting.c src/move.c src/colision.c src/draw.c src/utils.c\
 	main.c
 OBJETS = $(SRC:.c=.o)
 
