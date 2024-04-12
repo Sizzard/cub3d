@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/11 16:46:26 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:21:49 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 void	ft_put_line(t_data *data, int x, int drawStart, int drawEnd, int side)
 {
-	// printf("%d %d %d \n", x, drawStart, drawEnd);
-	drawStart += 472;
-	drawEnd += 472;
-	x = ft_inverse(data, x);
+	printf("%d %d %d \n", x, drawStart, drawEnd);
+	// x = ft_inverse(data, x);
 	while (drawStart < drawEnd)
 	{
 		// 0xAD2D2D
-		if (side > 0)
+		if (side == 1)
 			ft_put_pixel_in_image(data, 0xAD2D2D, x, drawStart);
 		else
 			ft_put_pixel_in_image(data, data->color, x, drawStart);
@@ -31,54 +29,46 @@ void	ft_put_line(t_data *data, int x, int drawStart, int drawEnd, int side)
 
 void	ft_raycasting(t_data *data)
 {
-	int		x;
-	int		mapX;
-	int		mapY;
-	double	cameraX;
-	double	time;
-	double	oldTime;
-	double	rayDirX;
-	double	rayDirY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
-	int		hit;
-	int		side;
-	int		h;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	int		prev_side;
+	int				x;
+	int				mapX;
+	int				mapY;
+	double			cameraX;
+	double			rayDirX;
+	double			rayDirY;
+	double			sideDistX;
+	double			sideDistY;
+	double			deltaDistX;
+	double			deltaDistY;
+	double			perpWallDist;
+	int				stepX;
+	int				stepY;
+	int				hit;
+	int				side;
+	int				h;
+	int				lineHeight;
+	int				drawStart;
+	int				drawEnd;
+	const double	w = (int)data->screen_size_x;
 
 	data->color = 0xd93939;
-	h = 500;
-	time = 0;
-	oldTime = 0;
-	data->planeX = 0;
-	data->planeY = 0.66;
-	data->dirX = -1;
-	data->dirY = 0;
+	h = data->screen_size_y;
 	x = 0;
-	side = 0;
-	// mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	// if (data->img.ptr)
-	// 	mlx_destroy_image(data->mlx_ptr, data->img.ptr);
-	// ft_free((void **)&data->img.ptr);
-	// ft_create_img(data);
-	// ft_create_buffer_img(data);
-	while (x < data->screen_size_x)
+	while (x < w)
 	{
-		cameraX = 2 * x / (double)data->screen_size_x - 1;
+		side = 0;
+		cameraX = 2 * x / w - 1;
 		rayDirX = data->dirX + data->planeX * cameraX;
 		rayDirY = data->dirY + data->planeY * cameraX;
 		mapX = (int)data->player.pos_x;
 		mapY = (int)data->player.pos_y;
-		deltaDistX = (rayDirX == 0) ? 1e30 : ft_abs(1 / rayDirX);
-		deltaDistY = (rayDirY == 0) ? 1e30 : ft_abs(1 / rayDirY);
+		if (rayDirX == 0)
+			deltaDistX = 1e30;
+		else
+			deltaDistX = fabs(1 / rayDirX);
+		if (rayDirY == 0)
+			deltaDistY = 1e30;
+		else
+			deltaDistY = fabs(1 / rayDirY);
 		hit = 0;
 		if (rayDirX < 0)
 		{
@@ -113,18 +103,18 @@ void	ft_raycasting(t_data *data)
 				sideDistY += deltaDistY;
 				mapY += stepY;
 				side = 1;
-				prev_side++;
 			}
 			if (data->map[mapY][mapX] == '1')
 				hit = 1;
 		}
 		if (side == 0)
 		{
-			prev_side = 0;
 			perpWallDist = (sideDistX - deltaDistX);
 		}
 		else
+		{
 			perpWallDist = (sideDistY - deltaDistY);
+		}
 		lineHeight = (int)(h / perpWallDist);
 		drawStart = -lineHeight / 2 + h / 2;
 		if (drawStart < 0)
@@ -132,7 +122,7 @@ void	ft_raycasting(t_data *data)
 		drawEnd = lineHeight / 2 + h / 2;
 		if (drawEnd >= h)
 			drawEnd = h - 1;
-		ft_put_line(data, x, drawStart, drawEnd, prev_side);
+		ft_put_line(data, x, drawStart, drawEnd, side);
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr, 0, 0);

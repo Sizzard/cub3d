@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/11 15:01:12 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:57:54 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,11 @@ void	ft_print_block(t_data *data, int x, int y)
 	int	i;
 	int	j;
 
-	i = x * 64;
-	j = y * 64;
-	while (j < (y + 1) * 64)
+	i = x * 16;
+	j = y * 16;
+	while (j < (y + 1) * 16)
 	{
-		while (i < (x + 1) * 64)
+		while (i < (x + 1) * 16)
 		{
 			if (data->map[y][x] == '1')
 			{
@@ -159,7 +159,7 @@ void	ft_print_block(t_data *data, int x, int y)
 			}
 			i++;
 		}
-		i = x * 64;
+		i = x * 16;
 		j++;
 	}
 }
@@ -169,17 +169,17 @@ void	ft_draw_player(t_data *data)
 	int	i;
 	int	j;
 
-	i = data->player.pos_x * 64;
-	j = data->player.pos_y * 64;
-	while (j < (data->player.pos_y + 1) * 64)
+	i = data->player.pos_x * 16;
+	j = data->player.pos_y * 16;
+	while (j < (data->player.pos_y + 1) * 16)
 	{
-		while (i < (data->player.pos_x + 1) * 64)
+		while (i < (data->player.pos_x + 1) * 16)
 		{
 			if (data)
 				ft_put_pixel_in_image(data, 0xf6f916, i, j);
 			i++;
 		}
-		i = data->player.pos_x * 64;
+		i = data->player.pos_x * 16;
 		j++;
 	}
 }
@@ -235,9 +235,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	ft_memset(&data, 0, sizeof(t_data));
+	data.dirX = 1;
+	data.planeY = 0.66;
 	init_data(&data);
 	create_map(&data);
-	print_map(data.map);
+	// print_map(data.map);
 	ft_create_img(&data);
 	ft_create_buffer_img(&data);
 	ft_draw_scene(&data);

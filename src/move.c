@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:38:42 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/11 15:04:26 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:22:59 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	ft_move_up(t_data *data)
 {
 	if (ft_is_colision(data, UP) == FALSE)
 	{
-		// data->player.y1 -= 1;
-		// data->player.y2 -= 1;
-		data->player.pos_y--;
+		data->player.pos_y -= 0.2;
 	}
 }
 
@@ -26,9 +24,7 @@ void	ft_move_left(t_data *data)
 {
 	if (ft_is_colision(data, LEFT) == FALSE)
 	{
-		// data->player.x1 -= 1;
-		// data->player.x2 -= 1;
-		data->player.pos_x--;
+		data->player.pos_x -= 0.2;
 	}
 }
 
@@ -36,29 +32,86 @@ void	ft_move_down(t_data *data)
 {
 	if (ft_is_colision(data, DOWN) == FALSE)
 	{
-		// data->player.y1 += 1;
-		// data->player.y2 += 1;
-		data->player.pos_y++;
+		data->player.pos_y += 0.2;
 	}
 }
 void	ft_move_right(t_data *data)
 {
 	if (ft_is_colision(data, RIGHT) == FALSE)
 	{
-		// data->player.x1 += 1;
-		// data->player.x2 += 1;
-		data->player.pos_x++;
+		data->player.pos_x += 0.2;
 	}
 }
 
 void	ft_look_left(t_data *data)
 {
-	(void)data;
+	double	rotSpeed;
+	double	OldDirX;
+	double	oldPlaneX;
+
+	rotSpeed = 0.5;
+	OldDirX = data->dirX;
+	data->dirX = data->dirX * cos(rotSpeed) - data->dirY * sin(rotSpeed);
+	data->dirY = OldDirX * sin(rotSpeed) + data->dirY * cos(rotSpeed);
+	oldPlaneX = data->planeX;
+	data->planeX = data->planeX * cos(rotSpeed) - data->planeY * sin(rotSpeed);
+	data->planeY = oldPlaneX * sin(rotSpeed) + data->planeY * cos(rotSpeed);
+	// if (data->dirX == -1)
+	// {
+	// 	data->dirX = 0;
+	// 	data->dirY = 1;
+	// }
+	// else if (data->dirX == 1)
+	// {
+	// 	data->dirX = 0;
+	// 	data->dirY = -1;
+	// }
+	// else if (data->dirX == 0 && data->dirY == -1)
+	// {
+	// 	data->dirX = -1;
+	// 	data->dirY = 0;
+	// }
+	// else if (data->dirX == 0 && data->dirY == 1)
+	// {
+	// 	data->dirX = +1;
+	// 	data->dirY = 0;
+	// }
 }
 
 void	ft_look_right(t_data *data)
 {
-	(void)data;
+	double	rotSpeed;
+	double	OldDirX;
+	double	oldPlaneX;
+
+	rotSpeed = 0.5;
+	OldDirX = data->dirX;
+	data->dirX = data->dirX * cos(-rotSpeed) - data->dirY * sin(-rotSpeed);
+	data->dirY = OldDirX * sin(-rotSpeed) + data->dirY * cos(-rotSpeed);
+	oldPlaneX = data->planeX;
+	data->planeX = data->planeX * cos(-rotSpeed) - data->planeY
+		* sin(-rotSpeed);
+	data->planeY = oldPlaneX * sin(-rotSpeed) + data->planeY * cos(-rotSpeed);
+	// if (data->dirX == -1)
+	// {
+	// 	data->dirX = 0;
+	// 	data->dirY = -1;
+	// }
+	// else if (data->dirX == 1)
+	// {
+	// 	data->dirX = 0;
+	// 	data->dirY = 1;
+	// }
+	// else if (data->dirX == 0 && data->dirY == -1)
+	// {
+	// 	data->dirX = +1;
+	// 	data->dirY = 0;
+	// }
+	// else if (data->dirX == 0 && data->dirY == 1)
+	// {
+	// 	data->dirX = -1;
+	// 	data->dirY = 0;
+	// }
 }
 
 void	ft_move(int keysym, t_data *data)
