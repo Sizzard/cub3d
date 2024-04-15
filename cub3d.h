@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/12 11:30:30 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/15 10:19:54 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ typedef struct s_player
 {
 	double			pos_x;
 	double			pos_y;
-	double			dir_x;
-	double			dir_y;
 	double			plane_x;
 	double			plane_y;
 	double			time;
@@ -126,6 +124,6 @@ int					ft_is_colision(t_data *data, int direction);
 /*						Utils						*/
 void				ft_free(void **ptr);
 int					ft_inverse(t_data *data, int nb);
-int					ft_abs(int nb);
+double				ft_abs(double nb);
 
 #endif

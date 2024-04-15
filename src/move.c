@@ -6,142 +6,115 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:38:42 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/12 15:22:59 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:21:48 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_move_up(t_data *data)
+void	ft_move_up(t_data *data, double moveSpeed)
 {
-	if (ft_is_colision(data, UP) == FALSE)
+	if (data->map[(int)((data->player.pos_y + data->dirY
+				* moveSpeed))][(int)(data->player.pos_x)] != '1')
 	{
-		data->player.pos_y -= 0.2;
+		data->player.pos_y += data->dirY * moveSpeed;
+	}
+	if (data->map[(int)(data->player.pos_y)][(int)((data->player.pos_x
+				+ data->dirX * moveSpeed))] != '1')
+	{
+		data->player.pos_x += data->dirX * moveSpeed;
 	}
 }
 
-void	ft_move_left(t_data *data)
+void	ft_move_left(t_data *data, double moveSpeed)
 {
-	if (ft_is_colision(data, LEFT) == FALSE)
-	{
-		data->player.pos_x -= 0.2;
-	}
+	if (data->map[(int)((data->player.pos_y - data->planeY
+				* moveSpeed))][(int)(data->player.pos_x)] != '1')
+		data->player.pos_y -= data->planeY * moveSpeed;
+	if (data->map[(int)(data->player.pos_y)][(int)((data->player.pos_x
+				- data->planeX * moveSpeed))] != '1')
+		data->player.pos_x -= data->planeX * moveSpeed;
 }
 
-void	ft_move_down(t_data *data)
+void	ft_move_down(t_data *data, double moveSpeed)
 {
-	if (ft_is_colision(data, DOWN) == FALSE)
-	{
-		data->player.pos_y += 0.2;
-	}
+	if (data->map[(int)(data->player.pos_y)][(int)((data->player.pos_x
+				- data->dirX * moveSpeed))] != '1')
+		data->player.pos_x -= data->dirX * moveSpeed;
+	if (data->map[(int)((data->player.pos_y - data->dirY
+				* moveSpeed))][(int)(data->player.pos_x)] != '1')
+		data->player.pos_y -= data->dirY * moveSpeed;
 }
-void	ft_move_right(t_data *data)
+void	ft_move_right(t_data *data, double moveSpeed)
 {
-	if (ft_is_colision(data, RIGHT) == FALSE)
-	{
-		data->player.pos_x += 0.2;
-	}
+	if (data->map[(int)((data->player.pos_y + data->planeY
+				* moveSpeed))][(int)(data->player.pos_x)] != '1')
+		data->player.pos_y += data->planeY * moveSpeed;
+	if (data->map[(int)(data->player.pos_y)][(int)((data->player.pos_x
+				+ data->planeX * moveSpeed))] != '1')
+		data->player.pos_x += data->planeX * moveSpeed;
 }
 
-void	ft_look_left(t_data *data)
+void	ft_look_left(t_data *data, double moveSpeed)
 {
-	double	rotSpeed;
 	double	OldDirX;
 	double	oldPlaneX;
 
-	rotSpeed = 0.5;
 	OldDirX = data->dirX;
-	data->dirX = data->dirX * cos(rotSpeed) - data->dirY * sin(rotSpeed);
-	data->dirY = OldDirX * sin(rotSpeed) + data->dirY * cos(rotSpeed);
+	data->dirX = data->dirX * cos(-moveSpeed) - data->dirY * sin(-moveSpeed);
+	data->dirY = OldDirX * sin(-moveSpeed) + data->dirY * cos(-moveSpeed);
 	oldPlaneX = data->planeX;
-	data->planeX = data->planeX * cos(rotSpeed) - data->planeY * sin(rotSpeed);
-	data->planeY = oldPlaneX * sin(rotSpeed) + data->planeY * cos(rotSpeed);
-	// if (data->dirX == -1)
-	// {
-	// 	data->dirX = 0;
-	// 	data->dirY = 1;
-	// }
-	// else if (data->dirX == 1)
-	// {
-	// 	data->dirX = 0;
-	// 	data->dirY = -1;
-	// }
-	// else if (data->dirX == 0 && data->dirY == -1)
-	// {
-	// 	data->dirX = -1;
-	// 	data->dirY = 0;
-	// }
-	// else if (data->dirX == 0 && data->dirY == 1)
-	// {
-	// 	data->dirX = +1;
-	// 	data->dirY = 0;
-	// }
+	data->planeX = data->planeX * cos(-moveSpeed) - data->planeY
+		* sin(-moveSpeed);
+	data->planeY = oldPlaneX * sin(-moveSpeed) + data->planeY * cos(-moveSpeed);
 }
 
-void	ft_look_right(t_data *data)
+void	ft_look_right(t_data *data, double moveSpeed)
 {
-	double	rotSpeed;
 	double	OldDirX;
 	double	oldPlaneX;
 
-	rotSpeed = 0.5;
 	OldDirX = data->dirX;
-	data->dirX = data->dirX * cos(-rotSpeed) - data->dirY * sin(-rotSpeed);
-	data->dirY = OldDirX * sin(-rotSpeed) + data->dirY * cos(-rotSpeed);
+	data->dirX = data->dirX * cos(moveSpeed) - data->dirY * sin(moveSpeed);
+	data->dirY = OldDirX * sin(moveSpeed) + data->dirY * cos(moveSpeed);
 	oldPlaneX = data->planeX;
-	data->planeX = data->planeX * cos(-rotSpeed) - data->planeY
-		* sin(-rotSpeed);
-	data->planeY = oldPlaneX * sin(-rotSpeed) + data->planeY * cos(-rotSpeed);
-	// if (data->dirX == -1)
-	// {
-	// 	data->dirX = 0;
-	// 	data->dirY = -1;
-	// }
-	// else if (data->dirX == 1)
-	// {
-	// 	data->dirX = 0;
-	// 	data->dirY = 1;
-	// }
-	// else if (data->dirX == 0 && data->dirY == -1)
-	// {
-	// 	data->dirX = +1;
-	// 	data->dirY = 0;
-	// }
-	// else if (data->dirX == 0 && data->dirY == 1)
-	// {
-	// 	data->dirX = -1;
-	// 	data->dirY = 0;
-	// }
+	data->planeX = data->planeX * cos(moveSpeed) - data->planeY
+		* sin(moveSpeed);
+	data->planeY = oldPlaneX * sin(moveSpeed) + data->planeY * cos(moveSpeed);
 }
 
 void	ft_move(int keysym, t_data *data)
 {
+	double	moveSpeed;
+
+	moveSpeed = 0.2;
 	if (keysym == XK_w)
 	{
-		ft_move_up(data);
+		ft_move_up(data, moveSpeed);
 	}
 	else if (keysym == XK_a)
 	{
-		ft_move_left(data);
+		ft_move_left(data, moveSpeed);
 	}
 	else if (keysym == XK_s)
 	{
-		ft_move_down(data);
+		ft_move_down(data, moveSpeed);
 	}
 	else if (keysym == XK_d)
 	{
-		ft_move_right(data);
+		ft_move_right(data, moveSpeed);
 	}
 	else if (keysym == XK_Left)
 	{
-		ft_look_left(data);
+		ft_look_left(data, moveSpeed);
 	}
 	else if (keysym == XK_Right)
 	{
-		ft_look_right(data);
+		ft_look_right(data, moveSpeed);
 	}
-	// ft_clear_window(data);
 	ft_draw_scene(data);
 	ft_raycasting(data);
 	ft_draw_minimap(data);
+	// printf("y = %f x = %f\n dirX = %f dirY = %f", data->player.pos_y,
+	// 	data->player.pos_x, data->dirX, data->dirY);
 }

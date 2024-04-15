@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/12 16:21:49 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:26:31 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_put_line(t_data *data, int x, int drawStart, int drawEnd, int side)
 {
-	printf("%d %d %d \n", x, drawStart, drawEnd);
+	// printf("%d %d %d \n", x, drawStart, drawEnd);
 	// x = ft_inverse(data, x);
 	while (drawStart < drawEnd)
 	{
@@ -44,14 +44,13 @@ void	ft_raycasting(t_data *data)
 	int				stepY;
 	int				hit;
 	int				side;
-	int				h;
 	int				lineHeight;
 	int				drawStart;
 	int				drawEnd;
 	const double	w = (int)data->screen_size_x;
+	const double	h = data->screen_size_y;
 
 	data->color = 0xd93939;
-	h = data->screen_size_y;
 	x = 0;
 	while (x < w)
 	{
@@ -64,11 +63,11 @@ void	ft_raycasting(t_data *data)
 		if (rayDirX == 0)
 			deltaDistX = 1e30;
 		else
-			deltaDistX = fabs(1 / rayDirX);
+			deltaDistX = ft_abs(1 / rayDirX);
 		if (rayDirY == 0)
 			deltaDistY = 1e30;
 		else
-			deltaDistY = fabs(1 / rayDirY);
+			deltaDistY = ft_abs(1 / rayDirY);
 		hit = 0;
 		if (rayDirX < 0)
 		{
@@ -125,5 +124,4 @@ void	ft_raycasting(t_data *data)
 		ft_put_line(data, x, drawStart, drawEnd, side);
 		x++;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr, 0, 0);
 }
