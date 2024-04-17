@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/15 12:07:43 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:05:49 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_find_player(t_data *data)
 		x = 0;
 		y++;
 	}
-	data->player.pos_x = 3;
-	data->player.pos_y = 8;
+	data->player.pos_x = 10.5;
+	data->player.pos_y = 5.5;
 }
 
 void	create_map(t_data *data)

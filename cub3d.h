@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/15 10:19:54 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:40:57 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ typedef struct s_wall
 	void			*wall_e;
 	void			*wall_w;
 }					t_wall;
+
+typedef struct s_mini
+{
+	int				x;
+	int				y;
+	int				start_x;
+	int				start_y;
+}					t_mini;
 
 typedef struct s_player
 {

@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/12 15:57:54 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:41:23 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,68 +138,84 @@ void	ft_draw_scene(t_data *data)
 	// mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr,0,0);
 }
 
-void	ft_print_block(t_data *data, int x, int y)
+void	ft_print_block(t_data *data, t_mini mini, int counter_x, int counter_y)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
+	const int	screen_len = data->screen_size_x / 50;
 
-	i = x * 16;
-	j = y * 16;
-	while (j < (y + 1) * 16)
+	i = counter_x * screen_len;
+	j = counter_y * screen_len;
+	while (j < screen_len * counter_y + screen_len - 1)
 	{
-		while (i < (x + 1) * 16)
+		while (i < screen_len * counter_x + screen_len - 1)
 		{
-			if (data->map[y][x] == '1')
+			if (mini.y < 0 || mini.x < 0)
+				return ;
+			else if (data->map[mini.y]
+				&& (int)ft_strlen(data->map[mini.y]) > mini.x
+				&& data->map[mini.y][mini.x] == '1')
 			{
 				ft_put_pixel_in_image(data, 0x000000, i, j);
 			}
-			else if (data->map[y][x] == '0' || data->map[y][x] == 'P')
+			else if (data->map[mini.y]
+				&& (int)ft_strlen(data->map[mini.y]) > mini.x
+				&& data->map[mini.y][mini.x] == '0')
 			{
 				ft_put_pixel_in_image(data, 0x754131, i, j);
 			}
 			i++;
 		}
-		i = x * 16;
+		i = counter_x * screen_len;
 		j++;
 	}
 }
 
 void	ft_draw_player(t_data *data)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
+	const int	screen_len = data->screen_size_x / 50;
 
-	i = data->player.pos_x * 16;
-	j = data->player.pos_y * 16;
-	while (j < (data->player.pos_y + 1) * 16)
+	i = screen_len * 3;
+	j = screen_len * 3;
+	while (j < screen_len * 3 + screen_len - 1)
 	{
-		while (i < (data->player.pos_x + 1) * 16)
+		while (i < screen_len * 3 + screen_len - 1)
 		{
 			if (data)
 				ft_put_pixel_in_image(data, 0xf6f916, i, j);
 			i++;
 		}
-		i = data->player.pos_x * 16;
+		i = screen_len * 3;
 		j++;
 	}
 }
 
 void	ft_draw_minimap(t_data *data)
 {
-	int	x;
-	int	y;
+	t_mini	mini;
+	int		counter_x;
+	int		counter_y;
 
-	x = 0;
-	y = 0;
-	while (data->map[y])
+	counter_y = 1;
+	counter_x = 1;
+	mini.start_x = (int)data->player.pos_x - 2;
+	mini.start_y = (int)data->player.pos_y - 2;
+	mini.x = mini.start_x;
+	mini.y = mini.start_y;
+	while (mini.y < mini.start_y + 5)
 	{
-		while (data->map[y][x])
+		while (mini.x < mini.start_x + 5)
 		{
-			ft_print_block(data, x, y);
-			x++;
+			ft_print_block(data, mini, counter_x, counter_y);
+			mini.x++;
+			counter_x++;
 		}
-		x = 0;
-		y++;
+		mini.x = mini.start_x;
+		counter_x = 1;
+		counter_y++;
+		mini.y++;
 	}
 	ft_draw_player(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr, 0, 0);
@@ -208,6 +224,14 @@ void	ft_draw_minimap(t_data *data)
 void	ft_draw_walls(t_data *data)
 {
 	(void)data;
+	// data->wall.wall_e = mlx_xpm_file_to_image(data->mlx_ptr,
+	// 		"textures/Mousse_sombre.xpm", &data->pixel.x, &data->pixel.y);
+	// data->wall.wall_w = mlx_xpm_file_to_image(data->mlx_ptr,
+	// 		"textures/Mur_sombre.xpm", &data->pixel.x, &data->pixel.y);
+	// data->wall.wall_n = mlx_xpm_file_to_image(data->mlx_ptr,
+	// 		"textures/Mousse_claire.xpm", &data->pixel.x, &data->pixel.y);
+	// data->wall.wall_s = mlx_xpm_file_to_image(data->mlx_ptr,
+	// 		"textures/Mur_clair.xpm", &data->pixel.x, &data->pixel.y);
 }
 
 void	print_map(char **str)
@@ -239,7 +263,6 @@ int	main(int argc, char **argv)
 	data.planeY = 0.66;
 	init_data(&data);
 	create_map(&data);
-	// print_map(data.map);
 	ft_create_img(&data);
 	ft_create_buffer_img(&data);
 	ft_draw_scene(&data);

@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/15 15:26:31 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:10:14 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ void	ft_put_line(t_data *data, int x, int drawStart, int drawEnd, int side)
 	{
 		// 0xAD2D2D
 		if (side == 1)
+		{
 			ft_put_pixel_in_image(data, 0xAD2D2D, x, drawStart);
+		}
 		else
+		{
 			ft_put_pixel_in_image(data, data->color, x, drawStart);
+		}
 		drawStart++;
 	}
 }
@@ -48,7 +52,7 @@ void	ft_raycasting(t_data *data)
 	int				drawStart;
 	int				drawEnd;
 	const double	w = (int)data->screen_size_x;
-	const double	h = data->screen_size_y;
+	const double	h = (int)data->screen_size_y;
 
 	data->color = 0xd93939;
 	x = 0;
