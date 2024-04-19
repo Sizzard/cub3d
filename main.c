@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/17 15:41:23 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:19:05 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_put_pixel_in_image(t_data *data, int color, int x, int y)
 {
 	const int	x_len = data->screen_size_x;
 
-	((int *)data->img.str)[x + (x_len * y)] = color;
+	data->img.str[x + (x_len * y)] = color;
 }
 
 void	ft_create_img(t_data *data)
@@ -99,7 +99,7 @@ void	ft_create_img(t_data *data)
 
 void	ft_create_buffer_img(t_data *data)
 {
-	data->img.str = mlx_get_data_addr(data->img.ptr, &data->img.bits,
+	data->img.str = (int *)mlx_get_data_addr(data->img.ptr, &data->img.bits,
 			&data->img.size_line, &data->img.endian);
 	if (!data->img.str)
 	{
@@ -135,7 +135,6 @@ void	ft_fill_image(t_data *data)
 void	ft_draw_scene(t_data *data)
 {
 	ft_fill_image(data);
-	// mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.ptr,0,0);
 }
 
 void	ft_print_block(t_data *data, t_mini mini, int counter_x, int counter_y)
@@ -223,15 +222,22 @@ void	ft_draw_minimap(t_data *data)
 
 void	ft_draw_walls(t_data *data)
 {
-	(void)data;
-	// data->wall.wall_e = mlx_xpm_file_to_image(data->mlx_ptr,
-	// 		"textures/Mousse_sombre.xpm", &data->pixel.x, &data->pixel.y);
-	// data->wall.wall_w = mlx_xpm_file_to_image(data->mlx_ptr,
-	// 		"textures/Mur_sombre.xpm", &data->pixel.x, &data->pixel.y);
-	// data->wall.wall_n = mlx_xpm_file_to_image(data->mlx_ptr,
-	// 		"textures/Mousse_claire.xpm", &data->pixel.x, &data->pixel.y);
-	// data->wall.wall_s = mlx_xpm_file_to_image(data->mlx_ptr,
-	// 		"textures/Mur_clair.xpm", &data->pixel.x, &data->pixel.y);
+	data->wall.wall_e_img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"textures/Mousse_sombre.xpm", &data->pixel.x, &data->pixel.y);
+	data->wall.e_str = (int *)mlx_get_data_addr(data->wall.wall_e_img,
+			&data->img.bits, &data->img.size_line, &data->img.endian);
+	data->wall.wall_w_img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"textures/Mousse_claire.xpm", &data->pixel.x, &data->pixel.y);
+	data->wall.w_str = (int *)mlx_get_data_addr(data->wall.wall_w_img,
+			&data->img.bits, &data->img.size_line, &data->img.endian);
+	data->wall.wall_n_img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"textures/Mur_clair.xpm", &data->pixel.x, &data->pixel.y);
+	data->wall.n_str = (int *)mlx_get_data_addr(data->wall.wall_n_img,
+			&data->img.bits, &data->img.size_line, &data->img.endian);
+	data->wall.wall_s_img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"textures/Mur_sombre.xpm", &data->pixel.x, &data->pixel.y);
+	data->wall.s_str = (int *)mlx_get_data_addr(data->wall.wall_s_img,
+			&data->img.bits, &data->img.size_line, &data->img.endian);
 }
 
 void	print_map(char **str)

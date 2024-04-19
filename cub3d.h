@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/17 15:40:57 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:37:53 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
 # define FALSE 0
 # define TRUE 1
 
-# define PI 3.141592
-
-# define FOV 66
+# define texW 64
+# define texH 64
 
 enum
 {
@@ -40,6 +39,14 @@ enum
 	LEFT = 1,
 	DOWN = 2,
 	RIGHT = 3,
+};
+
+enum
+{
+	NORTH = 0,
+	SOUTH = 1,
+	WEST = 2,
+	EAST = 3,
 };
 
 typedef struct s_pixel
@@ -58,7 +65,7 @@ typedef struct s_rgb
 typedef struct s_img
 {
 	void			*ptr;
-	char			*str;
+	int				*str;
 	int				bits;
 	int				size_line;
 	int				endian;
@@ -66,10 +73,14 @@ typedef struct s_img
 
 typedef struct s_wall
 {
-	void			*wall_n;
-	void			*wall_s;
-	void			*wall_e;
-	void			*wall_w;
+	void			*wall_n_img;
+	int				*n_str;
+	void			*wall_s_img;
+	int				*s_str;
+	void			*wall_e_img;
+	int				*e_str;
+	void			*wall_w_img;
+	int				*w_str;
 }					t_wall;
 
 typedef struct s_mini
@@ -131,7 +142,5 @@ int					ft_is_colision(t_data *data, int direction);
 
 /*						Utils						*/
 void				ft_free(void **ptr);
-int					ft_inverse(t_data *data, int nb);
-double				ft_abs(double nb);
 
 #endif

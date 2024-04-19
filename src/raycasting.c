@@ -6,28 +6,27 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/17 11:10:14 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:23:08 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_put_line(t_data *data, int x, int drawStart, int drawEnd, int side)
+int	ft_check_side(t_data *data, int side)
 {
-	// printf("%d %d %d \n", x, drawStart, drawEnd);
-	// x = ft_inverse(data, x);
-	while (drawStart < drawEnd)
+	if (side == FALSE)
 	{
-		// 0xAD2D2D
-		if (side == 1)
-		{
-			ft_put_pixel_in_image(data, 0xAD2D2D, x, drawStart);
-		}
+		if (data->dirX > 0)
+			return (NORTH);
 		else
-		{
-			ft_put_pixel_in_image(data, data->color, x, drawStart);
-		}
-		drawStart++;
+			return (SOUTH);
+	}
+	else
+	{
+		if (data->dirY > 0)
+			return (EAST);
+		else
+			return (WEST);
 	}
 }
 
@@ -53,6 +52,12 @@ void	ft_raycasting(t_data *data)
 	int				drawEnd;
 	const double	w = (int)data->screen_size_x;
 	const double	h = (int)data->screen_size_y;
+	double			wallX;
+	int				texX;
+	double			step;
+	double			texPos;
+	int				texY;
+	int				color;
 
 	data->color = 0xd93939;
 	x = 0;
@@ -67,11 +72,11 @@ void	ft_raycasting(t_data *data)
 		if (rayDirX == 0)
 			deltaDistX = 1e30;
 		else
-			deltaDistX = ft_abs(1 / rayDirX);
+			deltaDistX = fabs(1 / rayDirX);
 		if (rayDirY == 0)
 			deltaDistY = 1e30;
 		else
-			deltaDistY = ft_abs(1 / rayDirY);
+			deltaDistY = fabs(1 / rayDirY);
 		hit = 0;
 		if (rayDirX < 0)
 		{
@@ -99,13 +104,13 @@ void	ft_raycasting(t_data *data)
 			{
 				sideDistX += deltaDistX;
 				mapX += stepX;
-				side = 0;
+				side = FALSE;
 			}
 			else
 			{
 				sideDistY += deltaDistY;
 				mapY += stepY;
-				side = 1;
+				side = TRUE;
 			}
 			if (data->map[mapY][mapX] == '1')
 				hit = 1;
@@ -125,7 +130,42 @@ void	ft_raycasting(t_data *data)
 		drawEnd = lineHeight / 2 + h / 2;
 		if (drawEnd >= h)
 			drawEnd = h - 1;
-		ft_put_line(data, x, drawStart, drawEnd, side);
+		if (side == 0)
+		{
+			wallX = data->player.pos_y + perpWallDist * rayDirY;
+		}
+		else
+		{
+			wallX = data->player.pos_x + perpWallDist * rayDirX;
+		}
+		wallX -= floor(wallX);
+		texX = (int)(wallX * (double)texW);
+		if (side == 0 && rayDirX > 0)
+		{
+			texX = texW - texX - 1;
+		}
+		if (side == 1 && rayDirY < 0)
+		{
+			texX = texW - texX - 1;
+		}
+		step = 1.0 * texH / lineHeight;
+		texPos = (drawStart - h / 2 + lineHeight / 2) * step;
+		side = ft_check_side(data, side);
+		while (drawStart < drawEnd)
+		{
+			texY = (int)texPos & (texH - 1);
+			texPos += step;
+			if (side == NORTH)
+				color = data->wall.n_str[(texH * texY + texX)];
+			else if (side == SOUTH)
+				color = data->wall.s_str[(texH * texY + texX)];
+			else if (side == WEST)
+				color = data->wall.w_str[(texH * texY + texX)];
+			else if (side == EAST)
+				color = data->wall.e_str[(texH * texY + texX)];
+			ft_put_pixel_in_image(data, color, x, drawStart);
+			drawStart++;
+		}
 		x++;
 	}
 }
