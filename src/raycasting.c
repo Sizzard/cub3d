@@ -6,166 +6,150 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/19 15:23:08 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:10:01 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_check_side(t_data *data, int side)
+int	ft_check_side(int side, double ray_x, double ray_y)
 {
-	if (side == FALSE)
+	if (side == TRUE)
 	{
-		if (data->dirX > 0)
-			return (NORTH);
-		else
+		if (ray_y > 0)
 			return (SOUTH);
+		else
+			return (NORTH);
 	}
 	else
 	{
-		if (data->dirY > 0)
+		if (ray_x > 0)
 			return (EAST);
 		else
 			return (WEST);
 	}
 }
 
+void	ft_draw_line(t_data *data, t_raycast *ray)
+{
+	while (ray->drawstart < ray->drawend)
+	{
+		ray->tex_y = (int)ray->texpos & (TEXH - 1);
+		ray->texpos += ray->step;
+		if (ray->side == NORTH)
+			ray->color = data->wall.n_str[(TEXH * ray->tex_y + ray->tex_x)];
+		else if (ray->side == SOUTH)
+			ray->color = data->wall.s_str[(TEXH * ray->tex_y + ray->tex_x)];
+		else if (ray->side == WEST)
+			ray->color = data->wall.w_str[(TEXH * ray->tex_y + ray->tex_x)];
+		else if (ray->side == EAST)
+			ray->color = data->wall.e_str[(TEXH * ray->tex_y + ray->tex_x)];
+		ft_put_pixel_in_image(data, ray->color, ray->x, ray->drawstart);
+		ray->drawstart++;
+	}
+}
+
 void	ft_raycasting(t_data *data)
 {
-	int				x;
-	int				mapX;
-	int				mapY;
-	double			cameraX;
-	double			rayDirX;
-	double			rayDirY;
-	double			sideDistX;
-	double			sideDistY;
-	double			deltaDistX;
-	double			deltaDistY;
-	double			perpWallDist;
-	int				stepX;
-	int				stepY;
-	int				hit;
-	int				side;
-	int				lineHeight;
-	int				drawStart;
-	int				drawEnd;
-	const double	w = (int)data->screen_size_x;
-	const double	h = (int)data->screen_size_y;
-	double			wallX;
-	int				texX;
-	double			step;
-	double			texPos;
-	int				texY;
-	int				color;
+	t_raycast	ray;
 
-	data->color = 0xd93939;
-	x = 0;
-	while (x < w)
+	ft_memset(&ray, 0, sizeof(t_raycast));
+	ray.w = data->screen_size_x;
+	ray.h = data->screen_size_y;
+	while (ray.x < ray.w)
 	{
-		side = 0;
-		cameraX = 2 * x / w - 1;
-		rayDirX = data->dirX + data->planeX * cameraX;
-		rayDirY = data->dirY + data->planeY * cameraX;
-		mapX = (int)data->player.pos_x;
-		mapY = (int)data->player.pos_y;
-		if (rayDirX == 0)
-			deltaDistX = 1e30;
+		ray.side = 0;
+		ray.camera_x = 2 * ray.x / ray.w - 1;
+		ray.raydir_x = data->dir_x + data->plane_x * ray.camera_x;
+		ray.raydir_y = data->dir_y + data->plane_y * ray.camera_x;
+		ray.map_x = (int)data->player.pos_x;
+		ray.map_y = (int)data->player.pos_y;
+		if (ray.raydir_x == 0)
+			ray.deltadist_x = 1e30;
 		else
-			deltaDistX = fabs(1 / rayDirX);
-		if (rayDirY == 0)
-			deltaDistY = 1e30;
+			ray.deltadist_x = fabs(1 / ray.raydir_x);
+		if (ray.raydir_y == 0)
+			ray.deltadist_y = 1e30;
 		else
-			deltaDistY = fabs(1 / rayDirY);
-		hit = 0;
-		if (rayDirX < 0)
+			ray.deltadist_y = fabs(1 / ray.raydir_y);
+		ray.hit = 0;
+		if (ray.raydir_x < 0)
 		{
-			stepX = -1;
-			sideDistX = (data->player.pos_x - mapX) * deltaDistX;
+			ray.step_x = -1;
+			ray.sidedist_x = (data->player.pos_x - ray.map_x) * ray.deltadist_x;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - data->player.pos_x) * deltaDistX;
+			ray.step_x = 1;
+			ray.sidedist_x = (ray.map_x + 1.0 - data->player.pos_x)
+				* ray.deltadist_x;
 		}
-		if (rayDirY < 0)
+		if (ray.raydir_y < 0)
 		{
-			stepY = -1;
-			sideDistY = (data->player.pos_y - mapY) * deltaDistY;
+			ray.step_y = -1;
+			ray.sidedist_y = (data->player.pos_y - ray.map_y) * ray.deltadist_y;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - data->player.pos_y) * deltaDistY;
+			ray.step_y = 1;
+			ray.sidedist_y = (ray.map_y + 1.0 - data->player.pos_y)
+				* ray.deltadist_y;
 		}
-		while (hit == 0)
+		while (ray.hit == 0)
 		{
-			if (sideDistX < sideDistY)
+			if (ray.sidedist_x < ray.sidedist_y)
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = FALSE;
+				ray.sidedist_x += ray.deltadist_x;
+				ray.map_x += ray.step_x;
+				ray.side = FALSE;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = TRUE;
+				ray.sidedist_y += ray.deltadist_y;
+				ray.map_y += ray.step_y;
+				ray.side = TRUE;
 			}
-			if (data->map[mapY][mapX] == '1')
-				hit = 1;
+			if (data->map[ray.map_y][ray.map_x] == '1')
+				ray.hit = 1;
 		}
-		if (side == 0)
+		if (ray.side == 0)
 		{
-			perpWallDist = (sideDistX - deltaDistX);
+			ray.perpwalldist = (ray.sidedist_x - ray.deltadist_x);
 		}
 		else
 		{
-			perpWallDist = (sideDistY - deltaDistY);
+			ray.perpwalldist = (ray.sidedist_y - ray.deltadist_y);
 		}
-		lineHeight = (int)(h / perpWallDist);
-		drawStart = -lineHeight / 2 + h / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		drawEnd = lineHeight / 2 + h / 2;
-		if (drawEnd >= h)
-			drawEnd = h - 1;
-		if (side == 0)
+		ray.lineheight = (int)(ray.h / ray.perpwalldist);
+		ray.drawstart = -ray.lineheight / 2 + ray.h / 2;
+		if (ray.drawstart < 0)
+			ray.drawstart = 0;
+		ray.drawend = ray.lineheight / 2 + ray.h / 2;
+		if (ray.drawend >= ray.h)
+			ray.drawend = ray.h - 1;
+		if (ray.side == 0)
 		{
-			wallX = data->player.pos_y + perpWallDist * rayDirY;
+			ray.wall_x = data->player.pos_y + ray.perpwalldist * ray.raydir_y;
 		}
 		else
 		{
-			wallX = data->player.pos_x + perpWallDist * rayDirX;
+			ray.wall_x = data->player.pos_x + ray.perpwalldist * ray.raydir_x;
 		}
-		wallX -= floor(wallX);
-		texX = (int)(wallX * (double)texW);
-		if (side == 0 && rayDirX > 0)
+		ray.wall_x -= floor(ray.wall_x);
+		ray.tex_x = (int)(ray.wall_x * (double)TEXW);
+		if (ray.side == 0 && ray.raydir_x > 0)
 		{
-			texX = texW - texX - 1;
+			ray.tex_x = TEXW - ray.tex_x - 1;
 		}
-		if (side == 1 && rayDirY < 0)
+		if (ray.side == 1 && ray.raydir_y < 0)
 		{
-			texX = texW - texX - 1;
+			ray.tex_x = TEXW - ray.tex_x - 1;
 		}
-		step = 1.0 * texH / lineHeight;
-		texPos = (drawStart - h / 2 + lineHeight / 2) * step;
-		side = ft_check_side(data, side);
-		while (drawStart < drawEnd)
-		{
-			texY = (int)texPos & (texH - 1);
-			texPos += step;
-			if (side == NORTH)
-				color = data->wall.n_str[(texH * texY + texX)];
-			else if (side == SOUTH)
-				color = data->wall.s_str[(texH * texY + texX)];
-			else if (side == WEST)
-				color = data->wall.w_str[(texH * texY + texX)];
-			else if (side == EAST)
-				color = data->wall.e_str[(texH * texY + texX)];
-			ft_put_pixel_in_image(data, color, x, drawStart);
-			drawStart++;
-		}
-		x++;
+		ray.step = 1.0 * TEXH / ray.lineheight;
+		ray.texpos = (ray.drawstart - ray.h / 2 + ray.lineheight / 2)
+			* ray.step;
+		ray.side = ft_check_side(ray.side, ray.raydir_x, ray.raydir_y);
+		ft_draw_line(data, &ray);
+		ray.x++;
 	}
 }

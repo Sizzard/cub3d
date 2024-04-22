@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/17 12:05:49 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:20:44 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ void	ft_find_player(t_data *data)
 		{
 			if (data->map[y][x] == 'P')
 			{
-				data->player.pos_x = x;
-				data->player.pos_y = y;
+				data->map[y][x] = '0';
+				data->player.pos_x = x + 0.5;
+				data->player.pos_y = y + 0.5;
 			}
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	data->player.pos_x = 10.5;
-	data->player.pos_y = 5.5;
 }
 
 void	create_map(t_data *data)
@@ -44,12 +43,12 @@ void	create_map(t_data *data)
 	data->map = malloc(sizeof(char *) * 11);
 	data->map[0] = ft_strdup("111111111111111111111");
 	data->map[1] = ft_strdup("100001000000000000001");
-	data->map[2] = ft_strdup("100111000000000000011");
-	data->map[3] = ft_strdup("100000000000000000001");
-	data->map[4] = ft_strdup("100111000000000000001");
-	data->map[5] = ft_strdup("100001000000000000011");
-	data->map[6] = ft_strdup("100001000000000000001");
-	data->map[7] = ft_strdup("100001000000000000011");
+	data->map[2] = ft_strdup("100111000010100000011");
+	data->map[3] = ft_strdup("100000001110111000001");
+	data->map[4] = ft_strdup("10011100000P000000001");
+	data->map[5] = ft_strdup("100001001110111000011");
+	data->map[6] = ft_strdup("100001000010100000001");
+	data->map[7] = ft_strdup("100001000010100000011");
 	data->map[8] = ft_strdup("100001000000000000001");
 	data->map[9] = ft_strdup("111111111111111111111");
 	data->map[10] = NULL;
