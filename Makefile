@@ -1,7 +1,7 @@
 CFLAGS = -Wall -Wextra -Werror -g3
 MLXFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 NAME = cub3D
-SRC = src/parsing.c src/allocate_walls.c src/minimap.c src/raycasting.c src/movements.c src/camera_rotation.c src/colision.c src/draw.c src/end_process.c src/mlx.c src/utils.c\
+SRC = src/parsing.c src/allocate_walls.c src/allocate_display.c src/minimap.c src/raycasting.c src/raycasting_2.c src/movements.c src/camera_rotation.c src/colision.c src/draw.c src/end_process.c src/mlx.c src/utils.c\
 	main.c
 OBJETS = $(SRC:.c=.o)
 

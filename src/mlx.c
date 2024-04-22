@@ -6,18 +6,11 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:28:41 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/22 14:16:54 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:56:58 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	ft_put_pixel_in_image(t_data *data, int color, int x, int y)
-{
-	const int	x_len = data->screen_size_x;
-
-	data->img.str[x + (x_len * y)] = color;
-}
 
 int	on_destroy(t_data *data)
 {

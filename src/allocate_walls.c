@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:05:41 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/22 14:08:07 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:55:52 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_create_img(t_data *data, void **img, char *path)
 		ft_printfd(2, "Error\nmlx_xpm_file_to_image failed\n");
 		ft_end_process(data, FAILURE);
 	}
+	data->pixel.x = 0;
+	data->pixel.y = 0;
 }
 
 void	ft_create_img_buffer(t_data *data, void *ptr, int **buffer)

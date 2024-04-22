@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/22 14:06:19 by facarval         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:20:27 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ typedef struct t_wall
 void			create_map(t_data *data);
 
 /*						Allocations					*/
+void			ft_init_img(t_data *data);
+
 void			ft_create_img_wall(t_data *data);
 
 /*						Draw						*/
@@ -156,7 +158,7 @@ void			ft_create_buffer_img(t_data *data);
 void			ft_put_pixel_in_image(t_data *data, int color, int x, int y);
 void			ft_draw_minimap(t_data *data);
 void			ft_draw_scene(t_data *data);
-// void				ft_clear_window(t_data *data);
+void			ft_draw_line(t_data *data, t_raycast *ray);
 
 /*						MLX							*/
 int				on_destroy(t_data *data);
@@ -164,6 +166,8 @@ int				on_keypress(int keysym, t_data *data);
 
 /*						Raycasting					*/
 void			ft_raycasting(t_data *data);
+void			ft_init_raycasting(t_data *data, t_raycast *ray);
+int				ft_check_side(int side, double ray_x, double ray_y);
 
 /*						Movements						*/
 void			ft_move(int keysym, t_data *data);
