@@ -11,6 +11,8 @@ libft/libft.a :
 	make -C libft
 
 minilibx-linux/libmlx_Linux.a :
+	rm -rf minilibx-linux
+	git clone https://github.com/42Paris/minilibx-linux.git
 	make -C minilibx-linux
 
 $(NAME) : $(OBJETS) libft/libft.a cub3d.h
