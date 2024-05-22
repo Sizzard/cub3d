@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/22 17:20:27 by facarval         ###   ########.fr       */
+/*   Updated: 2024/05/22 15:28:21 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../libft/libft.h"
+# include "./libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -124,7 +124,7 @@ typedef struct s_raycast
 	int			color;
 }				t_raycast;
 
-typedef struct t_wall
+typedef struct s_data
 {
 	t_player	player;
 	t_pixel		pixel;
@@ -144,8 +144,22 @@ typedef struct t_wall
 	double		plane_y;
 }				t_data;
 
+typedef struct s_parse
+{
+	int			nb_data;
+	char		*line;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*floor;
+	char		*ceiling;
+}				t_parse;
+
 /*						Parsing						*/
 void			create_map(t_data *data);
+void			ft_init_parse(t_parse *fichier);
+int				ft_parse_data_file(t_parse *fichier, char *str);
 
 /*						Allocations					*/
 void			ft_init_img(t_data *data);

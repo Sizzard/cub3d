@@ -15,16 +15,16 @@ OBJETS = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJETS)
-	ar rc $(NAME) $(OBJETS)
+	@ar rc $(NAME) $(OBJETS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJETS)
+	@rm -f $(OBJETS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
