@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/05/22 15:38:22 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:36:49 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,73 +31,147 @@ int	ft_check_fd(char *str)
 
 int	ft_atorgb(char *str)
 {
-	int				i;
-	int				sign;
-	unsigned char	res;
+	int	i;
+	int	res;
 
 	i = 0;
-	sign = 1;
 	res = 0;
 	if (str[i] == 0)
-		return (0);
+		return (printf("manque un nombre dans rgb\n"), -1);
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		return (ft_printfd(2, "Error\n RGB WRONG FORMAT\n"), -1);
-	while (str[i] >= '0' && str[i] <= '9')
+	while ((str[i] >= '0' && str[i] <= '9' ))
 	{
 		res = res * 10 + (str[i] - 48);
-		if (res < 0)
-			return (ft_printfd(2, "Error\n RGB OVERFLOW\n"), -1);
+		if (res > 255)
+			return (ft_printfd(2, "Error\nRGB OVERFLOW\n"), -1);
 		i++;
 	}
-	return (res * sign);
+	return (res);
+}
+
+//renvoi le nb de virgules, renvoi 0 s'il y a bien les 2 virgules
+int	ft_check_coma(char *str)
+{
+	int	i;
+	int	res;
+
+	i = 0;
+	res = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			res++;
+		i++;
+	}
+	if (res == 2)
+		return (0);
+	else
+	{
+		ft_printfd(2, "Error\nWRONG COMA NB IN RGB\n");
+		return(1);
+	}
+}
+
+void	ft_remove_begin(char *str)
+{
+	int i;
+	int j;
+
+	j = 0;
+	i = 0;
+	while(ft_isalpha(str[i]) == 1)
+			i++;
+	i++;
+	while(str[i])
+	{
+		str[j] = str[i];
+		i++;
+		j++;
+	}
+	str[j] = 0;
+}
+
+int	ft_check_rgb(char *str)
+{
+	int i;
+	int nb_nike;
+	char *str_cpy;
+	char **rgb;
+
+	i = 0;
+	nb_nike = 0;
+	str_cpy = ft_strdup(str);
+	ft_remove_begin(str_cpy);
+	rgb = ft_split(str_cpy, ',');
+	if(!rgb)
+		return(printf("erreur malloc\n") ,1);
+	if(ft_atorgb(rgb[0]) == -1 || ft_atorgb(rgb[1]) == -1 ||
+		ft_atorgb(rgb[2]) == -1 )
+			return(1);
+	return(0);
 }
 
 int	ft_check_line(t_parse *fichier)
 {
 	if (fichier->line[0] == 'N' && fichier->line[1] == 'O'
-		&& fichier->no != NULL)
+		&& fichier->line[2] == ' ' && fichier->no != NULL)
 		return (ft_printfd(2, "Error\nDouble NO\n"), 1);
 	if (fichier->line[0] == 'N' && fichier->line[1] == 'O'
-		&& fichier->no == NULL)
+		&& fichier->line[2] == ' ' && fichier->no == NULL)
 		return (fichier->no = ft_strdup(fichier->line), fichier->nb_data++, 0);
 	if (fichier->line[0] == 'S' && fichier->line[1] == 'O'
-		&& fichier->so != NULL)
+		&& fichier->line[2] == ' ' && fichier->so != NULL)
 		return (ft_printfd(2, "Error\nDouble SO\n"), 1);
 	if (fichier->line[0] == 'S' && fichier->line[1] == 'O'
-		&& fichier->so == NULL)
+		&& fichier->line[2] == ' ' && fichier->so == NULL)
 		return (fichier->so = ft_strdup(fichier->line), fichier->nb_data++, 0);
 	if (fichier->line[0] == 'W' && fichier->line[1] == 'E'
-		&& fichier->we != NULL)
+		&& fichier->line[2] == ' ' && fichier->we != NULL)
 		return (ft_printfd(2, "Error\nDouble WE\n"), 1);
 	if (fichier->line[0] == 'W' && fichier->line[1] == 'E'
-		&& fichier->we == NULL)
+		&& fichier->line[2] == ' ' && fichier->we == NULL)
 		return (fichier->we = ft_strdup(fichier->line), fichier->nb_data++, 0);
 	if (fichier->line[0] == 'E' && fichier->line[1] == 'A'
-		&& fichier->ea != NULL)
+		&& fichier->line[2] == ' ' && fichier->ea != NULL)
 		return (ft_printfd(2, "Error\nDouble NO\n"), 1);
 	if (fichier->line[0] == 'E' && fichier->line[1] == 'A'
-		&& fichier->ea == NULL)
+		&& fichier->line[2] == ' ' && fichier->ea == NULL)
 		return (fichier->ea = ft_strdup(fichier->line), fichier->nb_data++, 0);
-	if (fichier->line[0] == 'F' && fichier->floor != NULL)
+		
+	
+	if (fichier->line[0] == 'F' && fichier->line[1] == ' ' && fichier->floor != NULL)
 		return (ft_printfd(2, "Error\nDouble FLOOR\n"), 1);
-	if (fichier->line[0] == 'F' && fichier->floor == NULL)
+	if (fichier->line[0] == 'F' && fichier->line[1] == ' ' && fichier->floor == NULL)
 	{
-		if (ft_atorgb(fichier->line) == 1)
-			return (ft_printfd(2, "Error\nRGB OVERFLOW\n"), 1);
-		return (fichier->floor = ft_strdup(fichier->line), fichier->nb_data++, 0);
+		if(ft_check_coma(fichier->line) != 0 || ft_check_rgb(fichier->line) != 0)
+			return (1);
+		fichier->floor = ft_strdup(fichier->line);
+		fichier->nb_data++;
+		return (0);
 	}
-	if (fichier->line[0] == 'C' && fichier->ceiling != NULL)
+	
+	
+	if (fichier->line[0] == 'C' && fichier->line[1] == ' ' && fichier->ceiling != NULL)
 		return (ft_printfd(2, "Error\nDouble CEILING\n"), 1);
-	if (fichier->line[0] == 'C' && fichier->ceiling == NULL)
-		return (fichier->ceiling = ft_strdup(fichier->line), fichier->nb_data++, 0);
+	if (fichier->line[0] == 'C' && fichier->line[1] == ' ' && fichier->ceiling == NULL)
+	{
+		if(ft_check_coma(fichier->line) != 0 || ft_check_rgb(fichier->line) != 0)
+			return (1);
+		fichier->ceiling = ft_strdup(fichier->line);
+		fichier->nb_data++;
+		return (0);
+	}
+	
+	
 	if (fichier->line[0] == '\n')
 		return (0);
 	if (fichier->line[0] == '\0')
 		return (1);
 	else
-		return (printf("Error\nMAUVAISE DATA : %s\n", fichier->line), 1);
+		return (printf("Error\nWRONG DATA ARG : %s\n", fichier->line), 1);
 	return (0);
 }
 
@@ -143,6 +217,30 @@ void	ft_epur_str(char *str)
 	str[j] = 0;
 }
 
+//renvoi 0 si ligne vide ou 2 mots
+int	ft_count_words_parse(const char *s, char c)
+{
+	int	i;
+	int	compteur;
+
+	i = 0;
+	compteur = 0;
+	while (s[i] == c)
+		i++;
+	if(s[i] == '\n' || s[i] == '\0')
+		return(0);
+	while (s[i])
+	{
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
+			compteur++;
+		i++;
+	}
+	if(compteur == 2)
+		return (0);
+	else
+		return(1);
+}
+
 int	ft_parse_data_file(t_parse *fichier, char *str)
 {
 	int	i;
@@ -158,14 +256,16 @@ int	ft_parse_data_file(t_parse *fichier, char *str)
 	{
 		fichier->line = get_next_line(fd);
 		if (!fichier->line)
-			break;
+			break ;
 		ft_epur_str(fichier->line);
+		if (ft_count_words_parse(fichier->line, ' ') == 1)
+			return (ft_printfd(2, "Error\nWRONG DATA: %s\n", fichier->line), 1);
 		if (ft_check_line(fichier) == 1)
 			return (1);
 		free(fichier->line);
 	}
-	if(fichier->nb_data != 6)
-		return(free(fichier->line), ft_printfd(2, "Error\nDATA MANQUE\n"), 1);
+	if (fichier->nb_data != 6)
+		return (free(fichier->line), ft_printfd(2, "Error\nDATA MANQUE\n"), 1);
 	return (close(fd), 0);
 }
 

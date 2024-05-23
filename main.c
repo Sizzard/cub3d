@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/22 15:37:39 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:46:17 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		(void)argv;
 		ft_printfd(2, "Error\nArgs\n");
 		return (FAILURE);
 	}
