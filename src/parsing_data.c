@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/05/23 15:36:49 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:27:38 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,89 +29,26 @@ int	ft_check_fd(char *str)
 	return (0);
 }
 
-int	ft_atorgb(char *str)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 0;
-	if (str[i] == 0)
-		return (printf("manque un nombre dans rgb\n"), -1);
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		return (ft_printfd(2, "Error\n RGB WRONG FORMAT\n"), -1);
-	while ((str[i] >= '0' && str[i] <= '9' ))
-	{
-		res = res * 10 + (str[i] - 48);
-		if (res > 255)
-			return (ft_printfd(2, "Error\nRGB OVERFLOW\n"), -1);
-		i++;
-	}
-	return (res);
-}
-
-//renvoi le nb de virgules, renvoi 0 s'il y a bien les 2 virgules
-int	ft_check_coma(char *str)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 0;
-	while (str[i])
-	{
-		if (str[i] == ',')
-			res++;
-		i++;
-	}
-	if (res == 2)
-		return (0);
-	else
-	{
-		ft_printfd(2, "Error\nWRONG COMA NB IN RGB\n");
-		return(1);
-	}
-}
-
-void	ft_remove_begin(char *str)
-{
-	int i;
-	int j;
-
-	j = 0;
-	i = 0;
-	while(ft_isalpha(str[i]) == 1)
-			i++;
-	i++;
-	while(str[i])
-	{
-		str[j] = str[i];
-		i++;
-		j++;
-	}
-	str[j] = 0;
-}
-
 int	ft_check_rgb(char *str)
 {
-	int i;
-	int nb_nike;
-	char *str_cpy;
-	char **rgb;
+	int		i;
+	int		nb_nike;
+	char	*str_cpy;
+	char	**rgb;
 
 	i = 0;
 	nb_nike = 0;
 	str_cpy = ft_strdup(str);
 	ft_remove_begin(str_cpy);
 	rgb = ft_split(str_cpy, ',');
-	if(!rgb)
-		return(printf("erreur malloc\n") ,1);
-	if(ft_atorgb(rgb[0]) == -1 || ft_atorgb(rgb[1]) == -1 ||
-		ft_atorgb(rgb[2]) == -1 )
-			return(1);
-	return(0);
+	if (!rgb)
+		return (printf("erreur malloc\n"), 1);
+	if (ft_atorgb(rgb[0]) == -1 || ft_atorgb(rgb[1]) == -1
+		|| ft_atorgb(rgb[2]) == -1)
+		return (free(str_cpy), ft_free_tabtab(rgb), 1);
+	free(str_cpy);
+	ft_free_tabtab(rgb);
+	return (0);
 }
 
 int	ft_check_line(t_parse *fichier)
@@ -140,32 +77,32 @@ int	ft_check_line(t_parse *fichier)
 	if (fichier->line[0] == 'E' && fichier->line[1] == 'A'
 		&& fichier->line[2] == ' ' && fichier->ea == NULL)
 		return (fichier->ea = ft_strdup(fichier->line), fichier->nb_data++, 0);
-		
-	
-	if (fichier->line[0] == 'F' && fichier->line[1] == ' ' && fichier->floor != NULL)
+	if (fichier->line[0] == 'F' && fichier->line[1] == ' '
+		&& fichier->floor != NULL)
 		return (ft_printfd(2, "Error\nDouble FLOOR\n"), 1);
-	if (fichier->line[0] == 'F' && fichier->line[1] == ' ' && fichier->floor == NULL)
+	if (fichier->line[0] == 'F' && fichier->line[1] == ' '
+		&& fichier->floor == NULL)
 	{
-		if(ft_check_coma(fichier->line) != 0 || ft_check_rgb(fichier->line) != 0)
+		if (ft_check_coma(fichier->line) != 0
+			|| ft_check_rgb(fichier->line) != 0)
 			return (1);
 		fichier->floor = ft_strdup(fichier->line);
 		fichier->nb_data++;
 		return (0);
 	}
-	
-	
-	if (fichier->line[0] == 'C' && fichier->line[1] == ' ' && fichier->ceiling != NULL)
+	if (fichier->line[0] == 'C' && fichier->line[1] == ' '
+		&& fichier->ceiling != NULL)
 		return (ft_printfd(2, "Error\nDouble CEILING\n"), 1);
-	if (fichier->line[0] == 'C' && fichier->line[1] == ' ' && fichier->ceiling == NULL)
+	if (fichier->line[0] == 'C' && fichier->line[1] == ' '
+		&& fichier->ceiling == NULL)
 	{
-		if(ft_check_coma(fichier->line) != 0 || ft_check_rgb(fichier->line) != 0)
+		if (ft_check_coma(fichier->line) != 0
+			|| ft_check_rgb(fichier->line) != 0)
 			return (1);
 		fichier->ceiling = ft_strdup(fichier->line);
 		fichier->nb_data++;
 		return (0);
 	}
-	
-	
 	if (fichier->line[0] == '\n')
 		return (0);
 	if (fichier->line[0] == '\0')
@@ -217,8 +154,8 @@ void	ft_epur_str(char *str)
 	str[j] = 0;
 }
 
-//renvoi 0 si ligne vide ou 2 mots
-int	ft_count_words_parse(const char *s, char c)
+// renvoi 0 si ligne vide ou 2 mots
+int	ft_count_words_parse(const char *s, char c, t_parse *fichier)
 {
 	int	i;
 	int	compteur;
@@ -227,18 +164,97 @@ int	ft_count_words_parse(const char *s, char c)
 	compteur = 0;
 	while (s[i] == c)
 		i++;
-	if(s[i] == '\n' || s[i] == '\0')
-		return(0);
+	if (s[i] == '\n' || s[i] == '\0')
+		return (0);
 	while (s[i])
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
 			compteur++;
 		i++;
 	}
-	if(compteur == 2)
+	if (compteur == 2)
 		return (0);
 	else
+		return (ft_printfd(2, "Error\nWRONG DATA: %s\n", fichier->line), 1);
+}
+
+//renvoi 0 si c'est une ligne de map
+int	ft_line_is_map(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if(str[i] == ' ' || str[i] == '1' || str[i] == '\n')
+			i++;
+		else
+			return(1);
+		if(str[i] == 0)
+			return(0);
+	}
+	return(0);
+}
+
+//rempli la map, renvoi 1 si le premier strdup loupe
+int	ft_create_map(int fd, t_parse *fichier)
+{
+	int i;
+	i = 0;
+	fichier->map[i] = ft_strdup(fichier->line);
 		return(1);
+	i++;
+	while(1)
+	{
+		fichier->map[i] = get_next_line(fd);
+		if(!fichier->map[i])
+			return(0);
+		i++;
+	}
+	return(0);
+}
+
+int	ft_first_line(char *str)
+{
+	int i;
+	i = 0;
+
+	while(str[i])
+	{
+		if(str[i] == '1' || str[i] == ' ' || str[i] == '\n')
+			i++;
+		else
+		{
+			ft_printfd(2, "Error\nWRONG CHAR 1ST LINE MAP\n");
+			return(1);
+		}
+	}
+	return(0);
+}
+
+//remvoi 1 si erreur de map
+int	ft_check_map(char **map, int nb_start)
+{
+	int i;
+	i = 0;
+	if(ft_first_line(map[i]) == 1)
+		return(ft_printfd(2, "Error\nINVALID MAP\n"), 1);
+	i++;
+	if(ft_empty_line(map[i]) == 1)
+		return(ft_printfd(2, "Error\nINVALID MAP\n"), 1);
+	while(map[i])
+	{
+		if(ft_empty_line(map[i]) == 1 || map[i+1][0] == '\0')
+			break;
+		if(ft_middle_line(map[i], nb_start) == 1)
+			return(ft_printfd(2, "Error\nINVALID MAP\n"), 1);
+		i++;
+	}
+	if(ft_last_line(map[i]) == 1)
+		return(1);
+	if(nb_start != 1)
+		return(ft_printfd(2, "Error\nStarting position != 1\n"), 1);
+	return(0);
 }
 
 int	ft_parse_data_file(t_parse *fichier, char *str)
@@ -255,17 +271,19 @@ int	ft_parse_data_file(t_parse *fichier, char *str)
 	while (1)
 	{
 		fichier->line = get_next_line(fd);
-		if (!fichier->line)
+		if (!fichier->line || ft_line_is_map(fichier->line) == 0)
 			break ;
 		ft_epur_str(fichier->line);
-		if (ft_count_words_parse(fichier->line, ' ') == 1)
-			return (ft_printfd(2, "Error\nWRONG DATA: %s\n", fichier->line), 1);
+		if (ft_count_words_parse(fichier->line, ' ', fichier) == 1)
+			return (1);
 		if (ft_check_line(fichier) == 1)
 			return (1);
 		free(fichier->line);
 	}
 	if (fichier->nb_data != 6)
 		return (free(fichier->line), ft_printfd(2, "Error\nDATA MANQUE\n"), 1);
+	if(ft_create_map(fd, fichier) == 1 || ft_check_map(fichier->map, fichier->nb_start) == 1)
+		return(close(fd), 1);
 	return (close(fd), 0);
 }
 
@@ -278,4 +296,6 @@ void	ft_init_parse(t_parse *fichier)
 	fichier->ea = NULL;
 	fichier->so = NULL;
 	fichier->we = NULL;
+	fichier->map = NULL;
+	fichier->nb_start = 0;
 }

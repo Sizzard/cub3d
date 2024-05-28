@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/22 15:28:21 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:17:42 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,20 @@ typedef struct s_parse
 	char		*ea;
 	char		*floor;
 	char		*ceiling;
+	char		**map;
+	int			nb_start;
 }				t_parse;
 
 /*						Parsing						*/
 void			create_map(t_data *data);
 void			ft_init_parse(t_parse *fichier);
 int				ft_parse_data_file(t_parse *fichier, char *str);
+
+/*						Parsing utils				*/
+int				ft_atorgb(char *str);
+void			ft_free_tabtab(char **str);
+int				ft_check_coma(char *str);
+void			ft_remove_begin(char *str);
 
 /*						Allocations					*/
 void			ft_init_img(t_data *data);
