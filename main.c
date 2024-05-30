@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/23 10:46:17 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:02:25 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_data(t_data *data)
 
 void	ft_print_parse(t_parse *fichier)
 {
+	printf("nb data : %d\n", fichier->nb_data);
 	printf("C : %s", fichier->ceiling);
 	printf("F : %s", fichier->floor);
 	printf("N : %s", fichier->no);
