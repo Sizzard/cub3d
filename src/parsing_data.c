@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/05/30 17:08:20 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:19:27 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,26 +179,25 @@ int	ft_count_words_parse(const char *s, char c, t_parse *fichier)
 		return (ft_printfd(2, "Error\nWRONG DATA: %s\n", fichier->line), 1);
 }
 
-// rempli la map, renvoi 1 si pb malloc
+// rempli la map, renvoi 1 si pb
 int	ft_create_map(int fd, t_parse *fichier)
 {
 	int	i;
 
 	i = 0;
-	fichier->map = malloc(1000);
+	fichier->map = malloc(10000);
 	if (!fichier->map)
 		return (1);
-	// fichier->line[0] = 0;
 	fichier->line = get_next_line(fd);
 	// printf("la : %s\n", fichier->line);
 	while (ft_empty_line(fichier->line) == 0)
 	{
+		free(fichier->line);
 		fichier->line = get_next_line(fd);
-		// printf("ici : %s\n", fichier->line);
 		if (!fichier->line)
-			return (1);
+			return (ft_error_parse(fichier), 1);
 	}
-	while (1)
+	while (ft_empty_line(fichier->line) == 1)
 	{
 		if (!fichier->line)
 			return (fichier->map[i] = NULL, 0);
@@ -206,49 +205,25 @@ int	ft_create_map(int fd, t_parse *fichier)
 		ft_printfd(2, "map[%d] :%s\n", i, fichier->map[i]);
 		if (!fichier->map[i])
 			return (fichier->map[i] = NULL, 0);
+		i++;
+		free(fichier->line);
 		fichier->line = get_next_line(fd);
 		if (!fichier->line)
 			return (fichier->map[i] = NULL, 0);
-		i++;
+		// if(ft_empty_line(fichier->line) == 0)
+		// {
+		// 	free(fichier->line);
+		// 	break ;
+		// }
 	}
-	return (0);
-}
-
-// return 0 si ligne rempli de '1' 'space' ou '\n'
-int	ft_first_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
+	while (1)
 	{
-		if (str[i] == '1' || str[i] == ' ' || str[i] == '\n')
-			i++;
-		else
-		{
-			ft_printfd(2, "Error\nWRONG CHAR 1ST LINE MAP\n");
-			return (1);
-		}
-	}
-	return (0);
-}
-
-// return 0 si ligne rempli de '1' 'space' ou '\n'
-int	ft_last_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	printf("last line : %s\n", str);
-	while (str[i])
-	{
-		if (str[i] == '1' || str[i] == ' ' || str[i] == '\n')
-			i++;
-		else
-		{
-			ft_printfd(2, "Error\nWRONG CHAR LAST LINE MAP\n");
-			return (1);
-		}
+		// if(ft_empty_line_end(fichier->line) == 0)
+		fichier->line = get_next_line(fd);
+		if (!fichier->line)
+			return(fichier->map[i] = NULL, 0);
+		if(ft_empty_line_end(fichier->line) == 1)
+			return(fichier->map[i] = NULL, ft_printfd(2, "Error\nCONTENT UNDER MAP\n"), 1);
 	}
 	return (0);
 }
@@ -259,11 +234,8 @@ int	ft_empty_line(char *str)
 	int	i;
 
 	i = 0;
-	// printf("str %s\n", str);
-	if (!str)
-		return (0);
-	if (str[i] == '\n' || str[i] == '\0')
-		return (0);
+	if(!str)
+		return(1);
 	while (str[i] != '\n' && str[i] != '\0')
 	{
 		if (str[i] != ' ')
@@ -276,15 +248,68 @@ int	ft_empty_line(char *str)
 		return (1);
 }
 
+// return 0 si ligne remplie d'espaces ou commence par '\n' ou '\0'
+int	ft_empty_line_end(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i] == ' ')
+		i++;
+	if(str[i] == '\n' || str[i] == '\0')
+		return(0);
+	else
+		return(1);
+}
+
 // return 0 si char est un mur '1' ou un vide '0'
 int	ft_char_around_is_ok(char c)
 {
+	if(!c || c == '\0')
+		return(1);
 	if (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (0);
 	else
 		return (1);
 }
 
+//return 0 si la 1ere ligne contient que des 1, ' ' et '\n' 
+int	ft_first_line(char **map, int i)
+{
+	int j;
+
+	j = 0;
+	while(map[i][j])
+	{
+		if(map[i][j] == '\0' || map[i][j] == '\n')
+			return(0);
+		if(map[i][j] == '1' || map[i][j] == ' ')
+			j++;
+		else
+			return(1);
+	}
+	return(0);
+}
+
+int	ft_last_line(char **map, int i)
+{
+	int j;
+
+	j = 0;
+	// i += 1;
+	while(map[i][j])
+	{
+		if(map[i][j] == '\0' || map[i][j] == '\n')
+			return(0);
+		if(map[i][j] == '1' || map[i][j] == ' ')
+			j++;
+		else
+			return(1);
+	}
+	return(0);
+}
+
+//check si les 0 ou directions sont entoures par un char ok
 int	ft_middle_line(char **map, int i, t_parse *fichier)
 {
 	int	j;
@@ -292,12 +317,12 @@ int	ft_middle_line(char **map, int i, t_parse *fichier)
 	j = 0;
 	while (map[i][j] && map[i][j] == ' ')
 		j++;
-	while (map[i][j])
+	while (map[i][j] && map[i+1])
 	{
 		if ((map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'E' || map[i][j] == 'W')
-			&& ft_char_around_is_ok(map[i - 1][j]) == 0
-			&& ft_char_around_is_ok(map[i + 1][j]) == 0
+			&& j > 0 && (int)ft_strlen(map[i - 1]) >= j && ft_char_around_is_ok(map[i - 1][j]) == 0
+			&& (int)ft_strlen(map[i + 1]) >= j && ft_char_around_is_ok(map[i + 1][j]) == 0
 			&& ft_char_around_is_ok(map[i][j + 1]) == 0
 			&& ft_char_around_is_ok(map[i][j - 1]) == 0)
 		{
@@ -308,6 +333,13 @@ int	ft_middle_line(char **map, int i, t_parse *fichier)
 				return (ft_printfd(2, "Error\nSeveral START\n"), 1);
 			j++;
 		}
+		if ((map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			&& (j == 0 || (int)ft_strlen(map[i - 1]) < j || ft_char_around_is_ok(map[i - 1][j]) == 1
+			|| (int)ft_strlen(map[i - 1]) < j || ft_char_around_is_ok(map[i + 1][j]) == 1
+			|| ft_char_around_is_ok(map[i][j + 1]) == 1
+			|| ft_char_around_is_ok(map[i][j - 1]) == 1))
+			return (ft_printfd(2, "Error\nPB MAP\n"), 1);
 		if (map[i][j] == ' ' || map[i][j] == '1')
 			j++;
 		if (map[i][j] == '\n')
@@ -317,23 +349,63 @@ int	ft_middle_line(char **map, int i, t_parse *fichier)
 	return (0);
 }
 
+//return 2 quand on arrive sur la derniere ligne, incremente pas le nb_data
+int	ft_middle_line_nonb(char **map, int i, t_parse *fichier)
+{
+	int	j;
+
+	j = 0;
+	while (map[i][j] && map[i][j] == ' ')
+		j++;
+	while (map[i][j] && map[i+1])
+	{
+		if ((map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			&& ft_char_around_is_ok(map[i - 1][j]) == 0
+			&& ft_char_around_is_ok(map[i + 1][j]) == 0
+			&& ft_char_around_is_ok(map[i][j + 1]) == 0
+			&& ft_char_around_is_ok(map[i][j - 1]) == 0)
+		{
+			j++;
+		}
+		if ((map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			&& (ft_char_around_is_ok(map[i - 1][j]) == 1
+			|| ft_char_around_is_ok(map[i + 1][j]) == 1
+			|| ft_char_around_is_ok(map[i][j + 1]) == 1
+			|| ft_char_around_is_ok(map[i][j - 1]) == 1))
+			return (ft_printfd(2, "Error\nPB MAP\n"), 1);
+		if (map[i][j] == ' ' || map[i][j] == '1')
+			j++;
+		if (map[i][j] == '\n')
+			break ;
+	}
+	printf("nb start %d\n", fichier->nb_start);
+	if(!map[i+1])
+		return(2);
+	return (0);
+}
+
 // renvoi 1 si erreur de map
 int	ft_check_map(char **map, t_parse *fichier)
 {
 	int	i;
 
 	i = 0;
-	// if (ft_first_line(map[i]) == 1)
-	// 	return (1);
-	// printf("str[%d] %s\n", i, map[i]);
-	// i++;
+	if(ft_first_line(map, i) == 1)
+		return (ft_printfd(2, "Error\nINVALID FIRST LINE\n"), 1);
 	while (map[i])
 	{
 		printf("str[%d] %s\n", i, map[i]);
 		if (ft_middle_line(map, i, fichier) == 1)
 			return (ft_printfd(2, "Error\nINVALID MAP\n"), 1);
+		if (ft_middle_line_nonb(map, i, fichier) == 2)
+			break ;
 		i++;
 	}
+	printf("icici\n");
+	if(ft_last_line(map, i) == 1)
+		return (ft_printfd(2, "Error\nINVALID LAST LINE\n"), 1);
 	if (fichier->nb_start != 1)
 		return (ft_printfd(2, "Error\nStarting position != 1\n"), 1);
 	return (0);
@@ -357,19 +429,20 @@ int	ft_parse_data_file(t_parse *fichier, char *str)
 			break ;
 		ft_epur_str(fichier->line);
 		if (ft_count_words_parse(fichier->line, ' ', fichier) == 1)
-			return (1);
+			return (ft_error_parse(fichier),1);
 		if (ft_check_line(fichier) == 1)
-			return (1);
+			return (ft_error_parse(fichier),1);
+		free(fichier->line);
 		if (fichier->nb_data == 6)
 			break ;
 	}
 	ft_print_parse(fichier);
 	if (fichier->nb_data != 6)
-		return (free(fichier->line), ft_printfd(2, "Error\nDATA MANQUE\n"), 1);
+		return (ft_error_parse(fichier), ft_printfd(2, "Error\nDATA MANQUE\n"), 1);
 	if (ft_create_map(fd, fichier) == 1)
-		return (ft_printfd(2, "Error\nMAP CREATING\n"), close(fd), 1);
+		return (ft_printfd(2, "Error\nMAP CREATING\n"),ft_error_parse(fichier), close(fd), 1);
 	if (ft_check_map(fichier->map, fichier) == 1)
-		return (ft_printfd(2, "Error\nMAPPP\n"), close(fd), 1);
+		return (ft_printfd(2, "Error\nMAPPP\n"), ft_error_parse(fichier),close(fd), 1);
 	return (close(fd), 0);
 }
 

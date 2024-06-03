@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:44:46 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/05/28 10:46:30 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:13:18 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,24 @@ int	ft_atorgb(char *str)
 
 	i = 0;
 	res = 0;
-	if (str[i] == 0)
+	if (!str || !str[i])
 		return (printf("manque un nombre dans rgb\n"), -1);
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		return (ft_printfd(2, "Error\n RGB WRONG FORMAT\n"), -1);
-	while ((str[i] >= '0' && str[i] <= '9' ))
+	// while (str[i] == ' ')
+	// 	i++;
+	while (str[i])
 	{
-		res = res * 10 + (str[i] - 48);
-		if (res > 255)
-			return (ft_printfd(2, "Error\nRGB OVERFLOW\n"), -1);
-		i++;
+	// printf("la -%s- -%c-\n", str, str[i]);
+		if(str[i] < '0' || str[i] > '9')
+			return (ft_printfd(2, "Error\nRGB WRONG FORMAT\n"), -1);
+		if(str[i] >= '0' && str[i] <= '9')
+		{
+			res = res * 10 + (str[i] - 48);
+			if (res > 255)
+				return (ft_printfd(2, "Error\nRGB OVERFLOW\n"), -1);
+			i++;
+		}
+		if(str[i] == '\n')
+			return(res);
 	}
 	return (res);
 }

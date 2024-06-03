@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/30 16:39:29 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:10:12 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,8 @@ int				ft_check_coma(char *str);
 void			ft_remove_begin(char *str);
 void			ft_print_parse(t_parse *fichier);
 int				ft_empty_line(char *str);
+int				ft_empty_line_end(char *str);
+void			ft_error_parse(t_parse *fichier);
 
 /*						Allocations					*/
 void			ft_init_img(t_data *data);

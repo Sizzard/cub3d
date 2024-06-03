@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/30 12:02:25 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:20:17 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_print_parse(t_parse *fichier)
 	printf("E : %s", fichier->ea);
 	printf("S : %s", fichier->so);
 	printf("W : %s", fichier->we);
-	printf("line : %s\n", fichier->line);
+	// printf("line : %s\n", fichier->line);
 }
 
 int	main(int argc, char **argv)
@@ -57,6 +57,7 @@ int	main(int argc, char **argv)
 	if(ft_parse_data_file(&fichier, argv[1]) == 1)
 		return(1);
 	ft_print_parse(&fichier);
+	ft_error_parse(&fichier);
 	return(printf("parsing ok\n"), 1);
 	ft_memset(&data, 0, sizeof(t_data));
 	data.dir_x = 1;

@@ -4,6 +4,7 @@ NAME = cub3D
 SRC = src/parsing.c \
 	src/parsing_data.c \
 	src/parsing_utils.c \
+	src/parsing_free.c \
 	src/allocate_walls.c \
 	src/allocate_display.c \
 	src/minimap.c src/raycasting.c \
