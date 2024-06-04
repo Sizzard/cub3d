@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/03 17:10:12 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:48:50 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,20 +158,34 @@ typedef struct s_parse
 	int			nb_start;
 }				t_parse;
 
-/*						Parsing						*/
-void			create_map(t_data *data);
-void			ft_init_parse(t_parse *fichier);
-int				ft_parse_data_file(t_parse *fichier, char *str);
+/*						Parsing data					*/
+void	create_map(t_data *data); // ft fabio
+int				ft_init_parse(t_parse *p);
+int				ft_parse_data_file(t_parse *p, char *str);
+int				ft_empty_line(char *str);
+int				ft_empty_line_end(char *str);
+
+/*						Parsing	map create				*/
+int				ft_create_map(int fd, t_parse *p);
+int				ft_check_map(char **map, t_parse *p);
+int				ft_char_is_checkable(char c);
+int				ft_char_is_ok(char c);
+int				ft_char_is_start(char c);
+int				ft_first_line(char **map, int i);
+int				ft_last_line(char **map, int i);
 
 /*						Parsing utils				*/
 int				ft_atorgb(char *str);
 void			ft_free_tabtab(char **str);
 int				ft_check_coma(char *str);
+int				ft_check_fd(char *str);
+int				ft_check_rgb(char *str);
+int				ft_count_words_parse(const char *s, char c, t_parse *p);
 void			ft_remove_begin(char *str);
-void			ft_print_parse(t_parse *fichier);
-int				ft_empty_line(char *str);
-int				ft_empty_line_end(char *str);
-void			ft_error_parse(t_parse *fichier);
+void			ft_epur_str(char *str);
+void			ft_print_parse(t_parse *p);
+void			ft_error_parse(t_parse *p);
+void			ft_error_parse_begin(t_parse *p);
 
 /*						Allocations					*/
 void			ft_init_img(t_data *data);

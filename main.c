@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/03 18:20:17 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:23:03 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,32 @@ void	init_data(t_data *data)
 	}
 }
 
-void	ft_print_parse(t_parse *fichier)
+void	ft_print_parse(t_parse *p)
 {
-	printf("nb data : %d\n", fichier->nb_data);
-	printf("C : %s", fichier->ceiling);
-	printf("F : %s", fichier->floor);
-	printf("N : %s", fichier->no);
-	printf("E : %s", fichier->ea);
-	printf("S : %s", fichier->so);
-	printf("W : %s", fichier->we);
-	// printf("line : %s\n", fichier->line);
+	printf("nb data : %d\n", p->nb_data);
+	printf("C : %s", p->ceiling);
+	printf("F : %s", p->floor);
+	printf("N : %s", p->no);
+	printf("E : %s", p->ea);
+	printf("S : %s", p->so);
+	printf("W : %s", p->we);
+	// printf("line : %s\n", p->line);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	t_parse fichier;
+	t_parse p;
 
 	if (argc != 2)
 	{
 		ft_printfd(2, "Error\nArgs\n");
 		return (FAILURE);
 	}
-	ft_init_parse(&fichier);
-	if(ft_parse_data_file(&fichier, argv[1]) == 1)
-		return(1);
-	ft_print_parse(&fichier);
-	ft_error_parse(&fichier);
+	if(ft_init_parse(&p) || ft_parse_data_file(&p, argv[1]) == 1)
+		return(FAILURE);
+	ft_print_parse(&p);
+	ft_error_parse(&p);
 	return(printf("parsing ok\n"), 1);
 	ft_memset(&data, 0, sizeof(t_data));
 	data.dir_x = 1;

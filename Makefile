@@ -1,10 +1,16 @@
 CFLAGS = -Wall -Wextra -Werror -g3
 MLXFLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 NAME = cub3D
-SRC = src/parsing.c \
+SRC = src/fabio_parsing.c \
+	src/parsing_create_map.c \
+	src/parsing_check_map.c \
+	src/parsing_check_map_utils.c \
+	src/parsing_clean_data.c \
 	src/parsing_data.c \
-	src/parsing_utils.c \
+	src/parsing_data_utils.c \
 	src/parsing_free.c \
+	src/parsing_init.c \
+	src/parsing_utils.c \
 	src/allocate_walls.c \
 	src/allocate_display.c \
 	src/minimap.c src/raycasting.c \
