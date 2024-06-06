@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/06 16:32:54 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:31:00 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ typedef struct s_parse
 	char		*floor;
 	char		*ceiling;
 	char		**map;
+	unsigned long ceiling_hexa;
+	unsigned long floor_hexa;
 	int			nb_start;
 }				t_parse;
 
@@ -188,6 +190,8 @@ int				ft_check_coma(char *str);
 int				ft_check_fd(char *str);
 int				ft_check_rgb(char *str);
 int				ft_count_words_parse(const char *s, char c, t_parse *p);
+void			ft_prepare_data(t_parse *p);
+void			ft_clean_struct(t_parse *p);
 void			ft_remove_begin(char *str);
 int				ft_epur_str(char *str);
 void			ft_print_parse(t_parse *p);

@@ -12,6 +12,7 @@ SRC = src/fabio_parsing.c \
 	src/parsing_free.c \
 	src/parsing_init.c \
 	src/parsing_utils.c \
+	src/parsing_prepare_data.c \
 	src/allocate_walls.c \
 	src/allocate_display.c \
 	src/minimap.c src/raycasting.c \
