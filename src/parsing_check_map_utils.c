@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:43:06 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/04 11:59:52 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:26:57 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	ft_last_line(char **map, int i)
 	int	j;
 
 	j = 0;
+	if (!map)
+		return (1);
 	while (map[i][j])
 	{
 		if (map[i][j] == '\0' || map[i][j] == '\n')

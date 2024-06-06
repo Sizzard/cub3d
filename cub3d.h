@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/04 15:48:50 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:32:54 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,13 @@ typedef struct s_parse
 void	create_map(t_data *data); // ft fabio
 int				ft_init_parse(t_parse *p);
 int				ft_parse_data_file(t_parse *p, char *str);
+int				ft_check_line(t_parse *p);
+int				ft_is_no(t_parse *p);
+int				ft_is_so(t_parse *p);
+int				ft_is_we(t_parse *p);
+int				ft_is_ea(t_parse *p);
+int				ft_is_f(t_parse *p);
+int				ft_is_c(t_parse *p);
 int				ft_empty_line(char *str);
 int				ft_empty_line_end(char *str);
 
@@ -182,7 +189,7 @@ int				ft_check_fd(char *str);
 int				ft_check_rgb(char *str);
 int				ft_count_words_parse(const char *s, char c, t_parse *p);
 void			ft_remove_begin(char *str);
-void			ft_epur_str(char *str);
+int				ft_epur_str(char *str);
 void			ft_print_parse(t_parse *p);
 void			ft_error_parse(t_parse *p);
 void			ft_error_parse_begin(t_parse *p);

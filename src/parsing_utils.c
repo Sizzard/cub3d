@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:44:46 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/04 16:02:54 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:25:47 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	ft_check_fd(char *str)
 	if (!str)
 		return (printf("Error\npath = %s\n", str), 0);
 	i = ft_strlen(str);
-	if (str[i - 1] != 'b' || str[i - 2] != 'u' || str[i - 3] != 'c' || str[i
-		- 4] != '.')
+	if (str[i - 1] != 'b' || str[i - 2] != 'u' || str[i - 3] != 'c'
+		|| str[i - 4] != '.')
 	{
 		ft_printfd(2, "Error\nMAUVAIS FORMAT DU p\n");
 		return (1);

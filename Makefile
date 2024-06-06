@@ -7,6 +7,7 @@ SRC = src/fabio_parsing.c \
 	src/parsing_check_map_utils.c \
 	src/parsing_clean_data.c \
 	src/parsing_data.c \
+	src/parsing_data_check_line.c \
 	src/parsing_data_utils.c \
 	src/parsing_free.c \
 	src/parsing_init.c \
