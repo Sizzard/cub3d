@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/06 18:06:53 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:49:02 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,23 @@ void	ft_print_parse(t_parse *p)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	t_parse p;
+	t_parse	p;
 
 	if (argc != 2)
 	{
 		ft_printfd(2, "Error\nArgs\n");
 		return (FAILURE);
 	}
-	if(ft_init_parse(&p) || ft_parse_data_file(&p, argv[1]) == 1)
-		return(FAILURE);
+	if (ft_init_parse(&p) || ft_parse_data_file(&p, argv[1]) == 1)
+		return (FAILURE);
 	ft_prepare_data(&p);
-	ft_print_parse(&p);
-	ft_error_parse(&p);
-	return(printf("parsing ok\n"), 1);
+	// ft_print_parse(&p);
+	// ft_error_parse(&p);
+	// return(printf("parsing ok\n"), 1);
 	ft_memset(&data, 0, sizeof(t_data));
-	data.dir_x = 1;
-	data.plane_y = 0.66;
 	init_data(&data);
-	ft_init_img(&data);
-	create_map(&data);
+	ft_init_img(&data, &p);
+	create_map(&data, &p);
 	ft_create_img_wall(&data);
 	ft_draw_scene(&data);
 	ft_raycasting(&data);

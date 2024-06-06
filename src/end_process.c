@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 10:13:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/22 14:18:16 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:37:29 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void	ft_end_process(t_data *data, int exit_code)
 {
 	if (data->map)
 		ft_free_map(data->map);
+	ft_free((void **)&data->no);
+	ft_free((void **)&data->so);
+	ft_free((void **)&data->we);
+	ft_free((void **)&data->ea);
 	if (data->img.ptr)
 		mlx_destroy_image(data->mlx_ptr, data->img.ptr);
 	if (data->wall.wall_n_img)

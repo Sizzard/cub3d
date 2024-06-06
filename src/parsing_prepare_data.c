@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_prepare_data.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:24:03 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/06 18:00:55 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:25:38 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ int	ft_rgbtohex(t_parse *p)
 	floor = ft_split(p->floor, ',');
 	if (!floor)
 		return (ft_free_tabtab(ceiling), 1);
-	p->ceiling_hexa = ft_convert(ft_atoi(ceiling[0]), ft_atoi(ceiling[1]), ft_atoi(ceiling[2]));
-    p->floor_hexa = ft_convert(ft_atoi(floor[0]), ft_atoi(floor[1]), ft_atoi(floor[2]));
+	p->ceiling_hexa = ft_convert(ft_atoi(ceiling[0]), ft_atoi(ceiling[1]),
+			ft_atoi(ceiling[2]));
+	p->floor_hexa = ft_convert(ft_atoi(floor[0]), ft_atoi(floor[1]),
+			ft_atoi(floor[2]));
 	ft_free_tabtab(ceiling);
 	ft_free_tabtab(floor);
-	return(0);
+	return (0);
 }
 void	ft_prepare_data(t_parse *p)
 {

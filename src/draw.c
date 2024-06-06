@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:13:09 by facarval          #+#    #+#             */
-/*   Updated: 2024/04/22 15:57:20 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 00:45:39 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_draw_scene(t_data *data)
 	{
 		while (data->pixel.x < data->screen_size_x)
 		{
-			ft_put_pixel_in_image(data, 0x33c1ff, data->pixel.x, data->pixel.y);
+			ft_put_pixel_in_image(data, data->c, data->pixel.x, data->pixel.y);
 			data->pixel.x++;
 		}
 		data->pixel.x = 0;
@@ -35,7 +35,7 @@ void	ft_draw_scene(t_data *data)
 	{
 		while (data->pixel.x < data->screen_size_x)
 		{
-			ft_put_pixel_in_image(data, 0xdb7820, data->pixel.x, data->pixel.y);
+			ft_put_pixel_in_image(data, data->f, data->pixel.x, data->pixel.y);
 			data->pixel.x++;
 		}
 		data->pixel.x = 0;

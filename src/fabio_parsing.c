@@ -1,16 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   fabio_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/22 11:53:57 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:13:24 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	find_plane(t_data *data, char c)
+{
+	if (c == 'W')
+	{
+		data->dir_x = -1;
+		data->dir_y = 0;
+		data->plane_x = 0;
+		data->plane_y = 0.66;
+	}
+	else if (c == 'E')
+	{
+		data->dir_x = 1;
+		data->dir_y = 0;
+		data->plane_x = 0;
+		data->plane_y = -0.66;
+	}
+	else if (c == 'N')
+	{
+		data->dir_x = 0;
+		data->dir_y = -1;
+		data->plane_x = -0.66;
+		data->plane_y = 0;
+	}
+	else if (c == 'S')
+	{
+		data->dir_x = 0;
+		data->dir_y = 1;
+		data->plane_x = 0.66;
+		data->plane_y = 0;
+	}
+}
 
 void	ft_find_player(t_data *data)
 {
@@ -23,8 +55,10 @@ void	ft_find_player(t_data *data)
 	{
 		while (data->map[y][x])
 		{
-			if (data->map[y][x] == 'P')
+			if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
+				|| data->map[y][x] == 'W' || data->map[y][x] == 'E')
 			{
+				find_plane(data, data->map[y][x]);
 				data->map[y][x] = '0';
 				data->player.pos_x = x + 0.5;
 				data->player.pos_y = y + 0.5;
@@ -36,26 +70,8 @@ void	ft_find_player(t_data *data)
 	}
 }
 
-void	create_map(t_data *data)
+void	create_map(t_data *data, t_parse *p)
 {
-	int	i;
-
-	data->map = malloc(sizeof(char *) * 11);
-	data->map[0] = ft_strdup("111111111111111111111");
-	data->map[1] = ft_strdup("100001000000000000001");
-	data->map[2] = ft_strdup("100111000010100000011");
-	data->map[3] = ft_strdup("100000001110111000001");
-	data->map[4] = ft_strdup("10011100000P000000001");
-	data->map[5] = ft_strdup("100001001110111000011");
-	data->map[6] = ft_strdup("100001000010100000001");
-	data->map[7] = ft_strdup("100001000010100000011");
-	data->map[8] = ft_strdup("100001000000000000001");
-	data->map[9] = ft_strdup("111111111111111111111");
-	data->map[10] = NULL;
+	data->map = p->map;
 	ft_find_player(data);
-	data->x_len = ft_strlen(data->map[0]);
-	i = 0;
-	while (data->map[i])
-		i++;
-	data->y_len = i;
 }

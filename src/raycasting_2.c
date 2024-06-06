@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:19:47 by facarval          #+#    #+#             */
-/*   Updated: 2024/05/15 11:16:44 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/07 01:52:09 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	ft_check_side(int side, double ray_x, double ray_y)
 	else
 	{
 		if (ray_x > 0)
-			return (WEST);
-		else
 			return (EAST);
+		else
+			return (WEST);
 	}
 }
