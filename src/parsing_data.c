@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/10 10:48:37 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:50:55 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,17 @@ int	ft_parse_data_file(t_parse *p, char *str)
 		p->line = get_next_line(fd);
 		if (!p->line)
 			break ;
+		// ft_printfd(2, "ici %s\n", p->line);
 		ft_epur_str(p->line);
 		if (ft_count_words_parse(p->line, ' ', p) == 1 || ft_check_line(p) == 1)
-			return (ft_error_parse_begin(p), 1);
+			return (ft_error_parse_begin(p), close(fd), 1);
 		free(p->line);
 		if (p->nb_data == 6)
 			break ;
 	}
 	if (p->nb_data != 6)
 		return (ft_error_parse_begin(p), ft_printfd(2, "Error\nDATA MISS\n"),
-			1);
+			close(fd), 1);
 	if (ft_create_map(fd, p) == 1 || ft_check_map(p->map, p) == 1)
 		return (ft_error_parse(p), close(fd), 1);
 	return (close(fd), 0);

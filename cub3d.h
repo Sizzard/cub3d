@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/10 12:03:58 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:10:14 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct s_data
 typedef struct s_parse
 {
 	int				nb_data;
+	int				nb_line_map;
 	char			*line;
 	char			*no;
 	char			*so;
@@ -166,8 +167,10 @@ typedef struct s_parse
 	int				nb_start;
 }					t_parse;
 
-/*						Parsing data					*/
+/*						Parsing data
+ */
 void				create_map(t_data *data, t_parse *p);
+int					ft_cp_fd(t_parse *p, char *str, t_list *list);
 int					ft_init_parse(t_parse *p);
 int					ft_parse_data_file(t_parse *p, char *str);
 int					ft_check_line(t_parse *p);
@@ -180,7 +183,8 @@ int					ft_is_c(t_parse *p);
 int					ft_empty_line(char *str);
 int					ft_empty_line_end(char *str);
 
-/*						Parsing	map create				*/
+/*						Parsing	map create
+ */
 int					ft_create_map(int fd, t_parse *p);
 int					ft_check_map(char **map, t_parse *p);
 int					ft_char_is_checkable(char c);
@@ -190,7 +194,8 @@ int					ft_char_is_start(char c);
 int					ft_first_line(char **map, int i);
 int					ft_last_line(char **map, int i);
 
-/*						Parsing utils				*/
+/*						Parsing utils
+ */
 int					ft_atorgb(char *str);
 void				ft_free_tabtab(char **str);
 int					ft_check_coma(char *str);
@@ -206,11 +211,13 @@ void				ft_error_parse(t_parse *p);
 void				ft_error_parse_begin(t_parse *p);
 char				*ft_strndup(char *str, int begin, int end);
 
-/*						Allocations					*/
+/*						Allocations
+ */
 void				ft_init_img(t_data *data, t_parse *p);
 void				ft_create_img_wall(t_data *data);
 
-/*						Draw						*/
+/*						Draw
+ */
 void				ft_create_buffer_img(t_data *data, t_parse *p);
 void				ft_put_pixel_in_image(t_data *data, int color, int x,
 						int y);
@@ -218,21 +225,25 @@ void				ft_draw_minimap(t_data *data);
 void				ft_draw_scene(t_data *data);
 void				ft_draw_line(t_data *data, t_raycast *ray);
 
-/*						MLX							*/
+/*						MLX
+ */
 int					on_destroy(t_data *data);
 int					on_keypress(int keysym, t_data *data);
 
-/*						Raycasting					*/
+/*						Raycasting
+ */
 void				ft_raycasting(t_data *data);
 void				ft_init_raycasting(t_data *data, t_raycast *ray);
 int					ft_check_side(int side, double ray_x, double ray_y);
 
-/*						Movements						*/
+/*						Movements
+ */
 void				ft_move(int keysym, t_data *data);
 int					ft_is_colision(t_data *data, int direction);
 void				ft_rotation(int keysym, t_data *data);
 
-/*						End of process						*/
+/*						End of process
+ */
 void				ft_free(void **ptr);
 void				ft_free_map(char **str);
 void				ft_end_process(t_data *data, int exit_code);

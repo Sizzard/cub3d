@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 01:49:02 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:08:04 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,22 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_parse	p;
+	t_list	cp_fd;
 
 	if (argc != 2)
 	{
 		ft_printfd(2, "Error\nArgs\n");
 		return (FAILURE);
 	}
+	cp_fd.next = NULL;
+	cp_fd.content = NULL;
+	if (ft_cp_fd(&p, argv[1], &cp_fd) == 1)
+		return (FAILURE);
 	if (ft_init_parse(&p) || ft_parse_data_file(&p, argv[1]) == 1)
 		return (FAILURE);
 	ft_prepare_data(&p);
 	// ft_print_parse(&p);
-	// ft_error_parse(&p);
-	// return(printf("parsing ok\n"), 1);
+	// return(0);
 	ft_memset(&data, 0, sizeof(t_data));
 	init_data(&data);
 	ft_init_img(&data, &p);

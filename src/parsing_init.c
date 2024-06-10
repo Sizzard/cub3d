@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:23:25 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/07 01:45:50 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:09:11 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_init_parse(t_parse *p)
 {
-	p->map = malloc(10000);
+	// printf("nb line %d\n", p->nb_line_map);
+	p->map = ft_calloc(p->nb_line_map + 1, sizeof(char*));
 	if (!p->map)
 		return (ft_printfd(2, "Error\nMALLOC MAP\n"), 1);
 	p->line = 0;
