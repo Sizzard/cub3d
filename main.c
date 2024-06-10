@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/10 18:08:04 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:15:25 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_print_parse(t_parse *p)
 	printf("W : %s", p->we);
 	printf("ceiling hexa : %ld\n", p->ceiling_hexa);
 	printf("floor hexa : %ld\n", p->floor_hexa);
-	// printf("line : %s\n", p->line);
 }
 
 int	main(int argc, char **argv)
