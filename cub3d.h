@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/10 11:02:33 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:03:58 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ typedef struct s_parse
 }					t_parse;
 
 /*						Parsing data					*/
-void	create_map(t_data *data, t_parse *p); // ft fabio
+void				create_map(t_data *data, t_parse *p);
 int					ft_init_parse(t_parse *p);
 int					ft_parse_data_file(t_parse *p, char *str);
 int					ft_check_line(t_parse *p);
