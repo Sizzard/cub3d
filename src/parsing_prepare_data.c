@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_prepare_data.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:24:03 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/07 01:25:38 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:17:10 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned long	ft_convert(int r, int g, int b)
 {
-	return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
 int	ft_rgbtohex(t_parse *p)
@@ -36,6 +36,8 @@ int	ft_rgbtohex(t_parse *p)
 	ft_free_tabtab(floor);
 	return (0);
 }
+
+//prepare la struct pour l'exec, supprime le nom de la data et converti le RGB
 void	ft_prepare_data(t_parse *p)
 {
 	ft_clean_struct(p);

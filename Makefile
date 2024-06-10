@@ -5,6 +5,7 @@ SRC = src/fabio_parsing.c \
 	src/parsing_create_map.c \
 	src/parsing_check_map.c \
 	src/parsing_check_map_utils.c \
+	src/parsing_check_map_utils2.c \
 	src/parsing_clean_data.c \
 	src/parsing_data.c \
 	src/parsing_data_check_line.c \

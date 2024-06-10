@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/06 16:21:03 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:48:37 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_is_c(t_parse *p)
 		if (ft_check_coma(p->line) != 0 || ft_check_rgb(p->line) != 0)
 			return (1);
 		p->ceiling = ft_strdup(p->line);
+		if (!p->ceiling)
+			return (1);
 		p->nb_data++;
 		return (0);
 	}
@@ -84,6 +86,6 @@ int	ft_parse_data_file(t_parse *p, char *str)
 		return (ft_error_parse_begin(p), ft_printfd(2, "Error\nDATA MISS\n"),
 			1);
 	if (ft_create_map(fd, p) == 1 || ft_check_map(p->map, p) == 1)
-		return (ft_printfd(2, "Error\nMAP\n"), ft_error_parse(p), close(fd), 1);
+		return (ft_error_parse(p), close(fd), 1);
 	return (close(fd), 0);
 }

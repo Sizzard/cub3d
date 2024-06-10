@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:40:48 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/06 16:27:10 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:15:02 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	ft_char_is_not_surrounded(char **map, int i, int j)
 		return (1);
 }
 
-// check si les 0 ou directions sont entoures par un char ok
+/*check si le char est bon et si les 0 ou directions sont entoures par
+un char ok*/
 int	ft_middle_line(char **map, int i, t_parse *p)
 {
 	int	j;
@@ -48,6 +49,8 @@ int	ft_middle_line(char **map, int i, t_parse *p)
 		j++;
 	while (map[i][j] && map[i + 1])
 	{
+		if (ft_char_is_wrong(map[i][j]) == 0)
+			return (ft_printfd(2, "Error\nWRONG CHAR IN MAP\n"), 1);
 		if (ft_char_is_surrounded(map, i, j) == 0)
 		{
 			if (ft_char_is_start(map[i][j]) == 0)
@@ -103,7 +106,7 @@ int	ft_check_map(char **map, t_parse *p)
 	while (map[i])
 	{
 		if (ft_middle_line(map, i, p) == 1)
-			return (ft_printfd(2, "Error\nINVALID MAP\n"), 1);
+			return (1);
 		if (ft_middle_line_nonb(map, i) == 2)
 			break ;
 		i++;

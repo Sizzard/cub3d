@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 01:38:51 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:02:33 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int					ft_create_map(int fd, t_parse *p);
 int					ft_check_map(char **map, t_parse *p);
 int					ft_char_is_checkable(char c);
 int					ft_char_is_ok(char c);
+int					ft_char_is_wrong(char c);
 int					ft_char_is_start(char c);
 int					ft_first_line(char **map, int i);
 int					ft_last_line(char **map, int i);

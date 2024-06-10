@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:48:07 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/06 16:24:33 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:08:53 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ int	ft_check_rgb(char *str)
 	i = 0;
 	nb_nike = 0;
 	str_cpy = ft_strdup(str);
+	if (!str_cpy)
+		return (1);
 	ft_remove_begin(str_cpy);
 	rgb = ft_split(str_cpy, ',');
 	if (!rgb)
-		return (printf("erreur malloc\n"), 1);
+		return (printf("erreur malloc\n"), free(str_cpy), 1);
 	if (ft_atorgb(rgb[0]) == -1 || ft_atorgb(rgb[1]) == -1
 		|| ft_atorgb(rgb[2]) == -1)
 		return (free(str_cpy), ft_free_tabtab(rgb), 1);
