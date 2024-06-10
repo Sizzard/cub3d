@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:13:49 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 01:39:54 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:01:09 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,35 @@ void	ft_create_buffer_img(t_data *data, t_parse *p)
 	}
 }
 
-void	ft_init_img(t_data *data, t_parse *p)
+void	ft_error_dup_newline(t_data *data, t_parse *p)
+{
+	ft_error_parse(p);
+	ft_end_process(data, FAILURE);
+}
+
+void	ft_remove_newline(t_data *data, t_parse *p)
 {
 	data->no = ft_strndup(p->no, 0, ft_strlen(p->no) - 2);
 	ft_free((void **)&p->no);
 	if (!data->no)
-	{
-		ft_error_parse(p);
-		ft_end_process(data, FAILURE);
-	}
+		ft_error_dup_newline(data, p);
 	data->so = ft_strndup(p->so, 0, ft_strlen(p->so) - 2);
 	ft_free((void **)&p->so);
 	if (!data->so)
-	{
-		ft_error_parse(p);
-		ft_end_process(data, FAILURE);
-	}
+		ft_error_dup_newline(data, p);
 	data->we = ft_strndup(p->we, 0, ft_strlen(p->we) - 2);
 	ft_free((void **)&p->we);
 	if (!data->we)
-	{
-		ft_error_parse(p);
-		ft_end_process(data, FAILURE);
-	}
+		ft_error_dup_newline(data, p);
 	data->ea = ft_strndup(p->ea, 0, ft_strlen(p->ea) - 2);
 	ft_free((void **)&p->ea);
 	if (!data->ea)
-	{
-		ft_error_parse(p);
-		ft_end_process(data, FAILURE);
-	}
+		ft_error_dup_newline(data, p);
+}
+
+void	ft_init_img(t_data *data, t_parse *p)
+{
+	ft_remove_newline(data, p);
 	data->c = p->ceiling_hexa;
 	ft_free((void **)&p->ceiling);
 	data->f = p->floor_hexa;

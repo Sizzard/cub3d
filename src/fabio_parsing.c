@@ -6,13 +6,13 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 01:13:24 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:01:22 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	find_plane(t_data *data, char c)
+void	ft_horizontal_plane(t_data *data, char c)
 {
 	if (c == 'W')
 	{
@@ -21,27 +21,39 @@ void	find_plane(t_data *data, char c)
 		data->plane_x = 0;
 		data->plane_y = 0.66;
 	}
-	else if (c == 'E')
+	else
 	{
 		data->dir_x = 1;
 		data->dir_y = 0;
 		data->plane_x = 0;
 		data->plane_y = -0.66;
 	}
-	else if (c == 'N')
+}
+
+void	ft_vertical_plane(t_data *data, char c)
+{
+	if (c == 'N')
 	{
 		data->dir_x = 0;
 		data->dir_y = -1;
 		data->plane_x = -0.66;
 		data->plane_y = 0;
 	}
-	else if (c == 'S')
+	else
 	{
 		data->dir_x = 0;
 		data->dir_y = 1;
 		data->plane_x = 0.66;
 		data->plane_y = 0;
 	}
+}
+
+void	find_plane(t_data *data, char c)
+{
+	if (c == 'W' || c == 'E')
+		ft_horizontal_plane(data, c);
+	else if (c == 'N' || c == 'S')
+		ft_vertical_plane(data, c);
 }
 
 void	ft_find_player(t_data *data)

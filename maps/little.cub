@@ -1,0 +1,10 @@
+  F 200,200,200
+               SO   ./textures/Mousse_claire.xpm  
+WE ./textures/West.xpm
+     EA     ./textures/East.xpm
+NO         ./textures/North.xpm
+ C   100,100,100
+
+111
+1N1
+111
