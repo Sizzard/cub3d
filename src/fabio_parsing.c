@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 16:47:01 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:00:40 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ char	ft_find_player(t_data *data)
 	return (0);
 }
 
-void	print_map2(char **map)
-{
-	int	i;
+// void	print_map2(char **map)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!map)
-		return ;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	if (!map)
+// 		return ;
+// 	while (map[i])
+// 	{
+// 		printf("%s\n", map[i]);
+// 		i++;
+// 	}
+// }
 
 void	create_map(t_data *data, t_parse *p)
 {
