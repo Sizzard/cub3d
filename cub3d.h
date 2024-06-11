@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 11:16:56 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:53:47 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef struct s_data
 	char			*so;
 	char			*ea;
 	char			*we;
+	char			character;
 	unsigned long	c;
 	unsigned long	f;
 }					t_data;
@@ -235,7 +236,7 @@ int					on_keypress(int keysym, t_data *data);
  */
 void				ft_raycasting(t_data *data);
 void				ft_init_raycasting(t_data *data, t_raycast *ray);
-int					ft_check_side(int side, double ray_x, double ray_y);
+int					ft_check_side(int side, double ray_x, double ray_y, char c);
 
 /*						Movements
  */

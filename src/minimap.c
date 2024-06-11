@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:10:55 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 01:33:21 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:02:19 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,20 @@ void	ft_draw_minimap(t_data *data)
 
 	counter_y = 1;
 	mini.start_x = (int)data->player.pos_x - 2;
-	mini.start_y = (int)data->player.pos_y - 2;
+	mini.start_y = (int)data->player.pos_y + 2;
 	mini.y = mini.start_y;
-	while (mini.y < mini.start_y + 5)
+	while (mini.y >= mini.start_y - 5)
 	{
 		counter_x = 1;
-		mini.x = mini.start_x + 4;
-		while (mini.x >= mini.start_x)
+		mini.x = mini.start_x;
+		while (mini.x < mini.start_x + 5)
 		{
 			ft_print_block(data, mini, counter_x, counter_y);
-			mini.x--;
+			mini.x++;
 			counter_x++;
 		}
 		counter_y++;
-		mini.y++;
+		mini.y--;
 	}
 	ft_draw_player(data);
 }

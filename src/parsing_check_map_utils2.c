@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_check_map_utils2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:59:36 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 11:15:37 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:28:05 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	ft_count_line_map(t_parse *p, char *str)
 	line = NULL;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (ft_printfd(2, "Error\nOPEN ERROR CP MAP\n"), 1);
+		return (ft_printfd(2, "Error\nOPEN ERROR COUNT LINE MAP\n"), 1);
 	line = get_next_line(fd);
 	if (!line)
-		return (ft_printfd(2, "Error\nMALLOC ERROR CP MAP\n"), 1);
+		return (close(fd), ft_printfd(2, "Error\nMALLOC ERROR MAP\n"), 1);
 	while (line)
 	{
 		if (ft_is_map(line) == 0)

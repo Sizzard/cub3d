@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:44:46 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 11:16:07 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:25:19 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_check_fd(char *str)
 		return (printf("Error\nPATH = %s\n", str), 0);
 	i = ft_strlen(str);
 	if (str[i - 1] != 'b' || str[i - 2] != 'u' || str[i - 3] != 'c' || str[i
-			- 4] != '.')
+		- 4] != '.')
 	{
 		ft_printfd(2, "Error\nMAUVAIS FORMAT DE LA MAP\n");
 		return (1);

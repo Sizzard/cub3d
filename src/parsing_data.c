@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 09:58:09 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:25:02 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_parse_data_file(t_parse *p, char *str)
 	int	fd;
 
 	if (ft_check_fd(str) == 1)
-		return (1);
+		return (ft_error_parse(p), 1);
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		return (ft_printfd(2, "Error\nOPEN ERROR\n"), 1);

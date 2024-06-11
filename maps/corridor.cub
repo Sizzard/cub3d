@@ -5,6 +5,11 @@ WE ./textures/West.xpm
 NO         ./textures/North.xpm
  C   100,100,100
 
-111
-1N1
-111
+1111
+1S01
+1001
+1001
+1011
+1001
+1001
+1111

@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:19:47 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 01:52:09 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:57:58 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,40 @@ void	ft_init_raycasting(t_data *data, t_raycast *ray)
 		ray->deltadist_y = fabs(1 / ray->raydir_y);
 }
 
-int	ft_check_side(int side, double ray_x, double ray_y)
+int	ft_check_side(int side, double ray_x, double ray_y, char c)
 {
 	if (side == TRUE)
 	{
-		if (ray_y > 0)
-			return (NORTH);
+		if (c == 'E' || c == 'W')
+		{
+			if (ray_y > 0)
+				return (NORTH);
+			else
+				return (SOUTH);
+		}
 		else
-			return (SOUTH);
+		{
+			if (ray_y > 0)
+				return (SOUTH);
+			else
+				return (NORTH);
+		}
 	}
 	else
 	{
-		if (ray_x > 0)
-			return (EAST);
+		if (c == 'N' || c == 'S')
+		{
+			if (ray_x > 0)
+				return (WEST);
+			else
+				return (EAST);
+		}
 		else
-			return (WEST);
+		{
+			if (ray_x > 0)
+				return (EAST);
+			else
+				return (WEST);
+		}
 	}
 }
