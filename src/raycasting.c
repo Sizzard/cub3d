@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 13:53:31 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:54:03 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ void	ft_raycasting(t_data *data)
 		ft_dda(data, &ray);
 		ft_find_to_draw(&ray);
 		ft_find_texel_pos(data, &ray);
-		ray.side = ft_check_side(ray.side, ray.raydir_x, ray.raydir_y, data->character);
+		ray.side = ft_check_side(ray.side, ray.raydir_x, ray.raydir_y,
+				data->character);
 		ft_draw_line(data, &ray);
 		ray.x++;
 	}

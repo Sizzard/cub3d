@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:19:47 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 13:57:58 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:58:52 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,50 @@ void	ft_init_raycasting(t_data *data, t_raycast *ray)
 		ray->deltadist_y = fabs(1 / ray->raydir_y);
 }
 
+char	ft_side_true(double ray_y, char c)
+{
+	if (c == 'E' || c == 'W')
+	{
+		if (ray_y > 0)
+			return (NORTH);
+		else
+			return (SOUTH);
+	}
+	else
+	{
+		if (ray_y > 0)
+			return (SOUTH);
+		else
+			return (NORTH);
+	}
+}
+
+char	ft_side_false(double ray_x, char c)
+{
+	if (c == 'N' || c == 'S')
+	{
+		if (ray_x > 0)
+			return (WEST);
+		else
+			return (EAST);
+	}
+	else
+	{
+		if (ray_x > 0)
+			return (EAST);
+		else
+			return (WEST);
+	}
+}
+
 int	ft_check_side(int side, double ray_x, double ray_y, char c)
 {
 	if (side == TRUE)
 	{
-		if (c == 'E' || c == 'W')
-		{
-			if (ray_y > 0)
-				return (NORTH);
-			else
-				return (SOUTH);
-		}
-		else
-		{
-			if (ray_y > 0)
-				return (SOUTH);
-			else
-				return (NORTH);
-		}
+		return (ft_side_true(ray_y, c));
 	}
 	else
 	{
-		if (c == 'N' || c == 'S')
-		{
-			if (ray_x > 0)
-				return (WEST);
-			else
-				return (EAST);
-		}
-		else
-		{
-			if (ray_x > 0)
-				return (EAST);
-			else
-				return (WEST);
-		}
+		return (ft_side_false(ray_x, c));
 	}
 }

@@ -22,6 +22,7 @@ SRC = src/fabio_parsing.c \
 	src/camera_rotation.c \
 	src/colision.c \
 	src/draw.c \
+	src/rev.c \
 	src/end_process.c \
 	src/mlx.c src/utils.c \
 	main.c

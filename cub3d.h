@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 13:53:47 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:55:20 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,9 @@ int					ft_char_is_wrong(char c);
 int					ft_char_is_start(char c);
 int					ft_first_line(char **map, int i);
 int					ft_last_line(char **map, int i);
+char				*ft_strrev(char *str);
+void				rev_map_x(t_data *data);
+void				rev_map_y(t_data *data, t_parse *p);
 
 /*						Parsing utils
  */
