@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:44:46 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/06 16:25:47 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:28:49 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	ft_atorgb(char *str)
 	i = 0;
 	res = 0;
 	if (!str || !str[i])
-		return (printf("manque un nombre dans rgb\n"), -1);
+		return (printf("Error\nMISSING NUMBER IN RGB\n"), -1);
+	while(str[i] == ' ')
+		i++;
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -32,7 +34,7 @@ int	ft_atorgb(char *str)
 				return (ft_printfd(2, "Error\nRGB OVERFLOW\n"), -1);
 			i++;
 		}
-		if (str[i] == '\n')
+		if (str[i] == '\n' || str[i] == ' ')
 			return (res);
 	}
 	return (res);
@@ -71,7 +73,7 @@ int	ft_check_coma(char *str)
 		return (0);
 	else
 	{
-		ft_printfd(2, "Error\nWRONG COMA NB IN RGB\n");
+		ft_printfd(2, "Error\nWRONG NUMBER OF COMA IN RGB\n");
 		return (1);
 	}
 }
@@ -82,12 +84,12 @@ int	ft_check_fd(char *str)
 	size_t	i;
 
 	if (!str)
-		return (printf("Error\npath = %s\n", str), 0);
+		return (printf("Error\nPATH = %s\n", str), 0);
 	i = ft_strlen(str);
 	if (str[i - 1] != 'b' || str[i - 2] != 'u' || str[i - 3] != 'c'
 		|| str[i - 4] != '.')
 	{
-		ft_printfd(2, "Error\nMAUVAIS FORMAT DU p\n");
+		ft_printfd(2, "Error\nMAUVAIS FORMAT DE LA MAP\n");
 		return (1);
 	}
 	return (0);

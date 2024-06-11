@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:59:36 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/10 18:08:11 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:53:04 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_is_map(char *str)
 	i = 0;
 	while (str[i] == ' ')
 		i++;
-	if (str[i] == '1')
+	if (ft_char_is_ok(str[i]) == 0)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:48:07 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/10 10:08:53 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:34:54 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,15 @@ int	ft_check_rgb(char *str)
 	if (!str_cpy)
 		return (1);
 	ft_remove_begin(str_cpy);
+	printf("ici str %s\n", str_cpy);
+	if(ft_count_nb_rgb(str_cpy) == 1)
+		return(free(str_cpy),  1);
 	rgb = ft_split(str_cpy, ',');
 	if (!rgb)
-		return (printf("erreur malloc\n"), free(str_cpy), 1);
+		return (ft_printfd(2, "Error\nMALLOC IN CHECK RGB\n"), free(str_cpy), 1);
+	printf("split 0 %s\n", rgb[0]);
+	printf("split 1 %s\n", rgb[1]);
+	printf("split 2 %s\n", rgb[2]);
 	if (ft_atorgb(rgb[0]) == -1 || ft_atorgb(rgb[1]) == -1
 		|| ft_atorgb(rgb[2]) == -1)
 		return (free(str_cpy), ft_free_tabtab(rgb), 1);
@@ -36,7 +42,8 @@ int	ft_check_rgb(char *str)
 	return (0);
 }
 
-// renvoi 0 si ligne vide ou 2 mots
+/*renvoi 0 si ligne vide ou 2 mots
+return 0 si la ligne est le C ou le F sans compter le nb d'espaces*/
 int	ft_count_words_parse(const char *s, char c, t_parse *p)
 {
 	int	i;
@@ -48,6 +55,8 @@ int	ft_count_words_parse(const char *s, char c, t_parse *p)
 		i++;
 	if (s[i] == '\n' || s[i] == '\0')
 		return (0);
+	if(s[i] == 'C' || s[i] == 'F')
+		return(0);
 	while (s[i])
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))

@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/10 17:50:55 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:58:09 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	ft_parse_data_file(t_parse *p, char *str)
 		p->line = get_next_line(fd);
 		if (!p->line)
 			break ;
-		// ft_printfd(2, "ici %s\n", p->line);
 		ft_epur_str(p->line);
 		if (ft_count_words_parse(p->line, ' ', p) == 1 || ft_check_line(p) == 1)
 			return (ft_error_parse_begin(p), close(fd), 1);

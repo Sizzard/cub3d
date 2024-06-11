@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:36:57 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/10 18:08:17 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:02:09 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	ft_skip_line(int fd, t_parse *p)
 return 1 si erreur de malloc*/
 int	ft_fill_map(int fd, t_parse *p, int *i)
 {
-	// printf("fill %s\n", p->line);
 	if (!p->line)
 		return (p->map[*i] = NULL, 0);
 	p->map[*i] = ft_strdup(p->line);
