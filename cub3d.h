@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/10 17:10:14 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:16:56 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ typedef struct s_parse
 /*						Parsing data
  */
 void				create_map(t_data *data, t_parse *p);
-int					ft_cp_fd(t_parse *p, char *str, t_list *list);
+int					ft_count_line_map(t_parse *p, char *str);
 int					ft_init_parse(t_parse *p);
 int					ft_parse_data_file(t_parse *p, char *str);
 int					ft_check_line(t_parse *p);
@@ -202,6 +202,7 @@ int					ft_check_coma(char *str);
 int					ft_check_fd(char *str);
 int					ft_check_rgb(char *str);
 int					ft_count_words_parse(const char *s, char c, t_parse *p);
+int					ft_count_nb_rgb(char *str);
 void				ft_prepare_data(t_parse *p);
 void				ft_clean_struct(t_parse *p);
 void				ft_remove_begin(char *str);

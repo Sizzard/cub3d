@@ -3,7 +3,7 @@ EA     ./textures/East.xpm
 NO         ./textures/North.xpm
   
 WE ./textures/West.xpm
-  F      2 20 ,          100    ,         100   
+  F      20    ,     100    ,         100
            SO   ./textures/South.xpm
 
 1111

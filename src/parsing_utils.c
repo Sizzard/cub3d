@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:44:46 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 10:28:49 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:16:07 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_atorgb(char *str)
 	res = 0;
 	if (!str || !str[i])
 		return (printf("Error\nMISSING NUMBER IN RGB\n"), -1);
-	while(str[i] == ' ')
+	while (str[i] == ' ')
 		i++;
 	while (str[i])
 	{
@@ -86,8 +86,8 @@ int	ft_check_fd(char *str)
 	if (!str)
 		return (printf("Error\nPATH = %s\n", str), 0);
 	i = ft_strlen(str);
-	if (str[i - 1] != 'b' || str[i - 2] != 'u' || str[i - 3] != 'c'
-		|| str[i - 4] != '.')
+	if (str[i - 1] != 'b' || str[i - 2] != 'u' || str[i - 3] != 'c' || str[i
+			- 4] != '.')
 	{
 		ft_printfd(2, "Error\nMAUVAIS FORMAT DE LA MAP\n");
 		return (1);

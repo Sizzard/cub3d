@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:23:25 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/10 18:09:11 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:16:31 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	ft_init_parse(t_parse *p)
 {
-	// printf("nb line %d\n", p->nb_line_map);
-	p->map = ft_calloc(p->nb_line_map + 1, sizeof(char*));
+	p->map = ft_calloc(p->nb_line_map + 1, sizeof(char *));
 	if (!p->map)
 		return (ft_printfd(2, "Error\nMALLOC MAP\n"), 1);
 	p->line = 0;

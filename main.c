@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:19:35 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/10 18:15:25 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:18:16 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,14 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_parse	p;
-	t_list	cp_fd;
 
 	if (argc != 2)
-	{
-		ft_printfd(2, "Error\nArgs\n");
-		return (FAILURE);
-	}
-	cp_fd.next = NULL;
-	cp_fd.content = NULL;
-	if (ft_cp_fd(&p, argv[1], &cp_fd) == 1)
+		return (ft_printfd(2, "Error\nArgs\n"), FAILURE);
+	if (ft_count_line_map(&p, argv[1]) == 1)
 		return (FAILURE);
 	if (ft_init_parse(&p) || ft_parse_data_file(&p, argv[1]) == 1)
 		return (FAILURE);
 	ft_prepare_data(&p);
-	// ft_print_parse(&p);
-	// return(0);
 	ft_memset(&data, 0, sizeof(t_data));
 	init_data(&data);
 	ft_init_img(&data, &p);
