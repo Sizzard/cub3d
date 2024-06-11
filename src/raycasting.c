@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:24:04 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 14:54:03 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:49:54 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	ft_find_texel_pos(t_data *data, t_raycast *ray)
 	}
 	ray->wall_x -= floor(ray->wall_x);
 	ray->tex_x = (int)(ray->wall_x * (double)TEXW);
-	if (ray->side == 0 && ray->raydir_x > 0)
+	if (ray->side == 0 && ray->raydir_x < 0)
 	{
 		ray->tex_x = TEXW - ray->tex_x - 1;
 	}
-	if (ray->side == 1 && ray->raydir_y < 0)
+	if (ray->side == 1 && ray->raydir_y > 0)
 	{
 		ray->tex_x = TEXW - ray->tex_x - 1;
 	}

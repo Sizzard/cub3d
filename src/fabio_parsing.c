@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 12:35:17 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 14:55:54 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:47:01 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	ft_horizontal_plane(t_data *data, char c)
 {
 	if (c == 'W')
 	{
-		data->dir_x = 1;
-		data->dir_y = 0;
-		data->plane_x = 0;
-		data->plane_y = -0.66;
-	}
-	else
-	{
 		data->dir_x = -1;
 		data->dir_y = 0;
 		data->plane_x = 0;
 		data->plane_y = 0.66;
+	}
+	else
+	{
+		data->dir_x = 1;
+		data->dir_y = 0;
+		data->plane_x = 0;
+		data->plane_y = -0.66;
 	}
 }
 
@@ -35,15 +35,15 @@ void	ft_vertical_plane(t_data *data, char c)
 	if (c == 'N')
 	{
 		data->dir_x = 0;
-		data->dir_y = 1;
-		data->plane_x = 0.66;
+		data->dir_y = -1;
+		data->plane_x = -0.66;
 		data->plane_y = 0;
 	}
 	else
 	{
 		data->dir_x = 0;
-		data->dir_y = -1;
-		data->plane_x = -0.66;
+		data->dir_y = 1;
+		data->plane_x = 0.66;
 		data->plane_y = 0;
 	}
 }
@@ -83,13 +83,23 @@ char	ft_find_player(t_data *data)
 	return (0);
 }
 
+void	print_map2(char **map)
+{
+	int	i;
+
+	i = 0;
+	if (!map)
+		return ;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
+
 void	create_map(t_data *data, t_parse *p)
 {
 	data->map = p->map;
-	if (ft_find_player(data) == 'N' || ft_find_player(data) == 'S')
-		rev_map_y(data, p);
-	else
-		rev_map_x(data);
 	ft_find_player(data);
 	data->map[(int)data->player.pos_y][(int)data->player.pos_x] = '0';
 }

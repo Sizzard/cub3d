@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:19:47 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 14:58:52 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:51:52 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_init_raycasting(t_data *data, t_raycast *ray)
 {
 	ray->side = 0;
-	ray->camera_x = 2 * ray->x / ray->w - 1;
+	ray->camera_x = 2 * (ray->w - ray->x) / (double)ray->w - 1;
 	ray->raydir_x = data->dir_x + data->plane_x * ray->camera_x;
 	ray->raydir_y = data->dir_y + data->plane_y * ray->camera_x;
 	ray->map_x = (int)data->player.pos_x;
@@ -35,16 +35,16 @@ char	ft_side_true(double ray_y, char c)
 	if (c == 'E' || c == 'W')
 	{
 		if (ray_y > 0)
-			return (NORTH);
-		else
 			return (SOUTH);
+		else
+			return (NORTH);
 	}
 	else
 	{
 		if (ray_y > 0)
-			return (SOUTH);
-		else
 			return (NORTH);
+		else
+			return (SOUTH);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:13:09 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/07 00:45:39 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:39:47 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_put_pixel_in_image(t_data *data, int color, int x, int y)
 {
 	const int	x_len = data->screen_size_x;
 
+	// printf("y : %d , x : %d , x_len : %d\n", y, x, x_len);
 	data->img.str[x + (x_len * y)] = color;
 }
 
