@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:48:07 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 11:12:57 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:41:03 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	ft_count_nb_rgb(char *str)
 	count = 0;
 	while (str[i])
 	{
+		if (ft_isdigit(str[i]) == 0 && str[i] != ',' && str[i] != ' '
+			&& str[i] != '\n')
+			return (1);
 		if (ft_isdigit(str[i]) == 1 && (str[i + 1] == ',' || str[i + 1] == ' '
 				|| str[i + 1] == '\0' || str[i + 1] == '\n'))
 			count++;
@@ -44,7 +47,7 @@ int	ft_check_rgb(char *str)
 		return (1);
 	ft_remove_begin(str_cpy);
 	if (ft_count_nb_rgb(str_cpy) != 3)
-		return (free(str_cpy), ft_printfd(2, "Error\nRGB NUMBERS != 3\n"), 1);
+		return (free(str_cpy), ft_printfd(2, "Error\nRGB\n"), 1);
 	rgb = ft_split(str_cpy, ',');
 	if (!rgb)
 		return (ft_printfd(2, "Error\nMALLOC IN CHECK RGB\n"), free(str_cpy),

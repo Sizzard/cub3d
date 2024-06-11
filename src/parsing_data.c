@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:53:15 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 11:25:02 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:41:10 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_parse_data_file(t_parse *p, char *str)
 		if (!p->line)
 			break ;
 		ft_epur_str(p->line);
-		if (ft_count_words_parse(p->line, ' ', p) == 1 || ft_check_line(p) == 1)
+		if (ft_check_line(p) == 1)
 			return (ft_error_parse_begin(p), close(fd), 1);
 		free(p->line);
 		if (p->nb_data == 6)
