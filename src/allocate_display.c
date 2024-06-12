@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_display.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:13:49 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/10 12:03:22 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:34:48 by facarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,14 @@ void	ft_error_dup_newline(t_data *data, t_parse *p)
 
 void	ft_remove_newline(t_data *data, t_parse *p)
 {
-	data->no = ft_strndup(p->no, 0, ft_strlen(p->no) - 2);
-	ft_free((void **)&p->no);
-	if (!data->no)
-		ft_error_dup_newline(data, p);
-	data->so = ft_strndup(p->so, 0, ft_strlen(p->so) - 2);
-	ft_free((void **)&p->so);
-	if (!data->so)
-		ft_error_dup_newline(data, p);
-	data->we = ft_strndup(p->we, 0, ft_strlen(p->we) - 2);
-	ft_free((void **)&p->we);
-	if (!data->we)
-		ft_error_dup_newline(data, p);
-	data->ea = ft_strndup(p->ea, 0, ft_strlen(p->ea) - 2);
-	ft_free((void **)&p->ea);
-	if (!data->ea)
-		ft_error_dup_newline(data, p);
+	data->no = p->no;
+	data->no[ft_strlen(data->no) - 1] = 0;
+	data->so = p->so;
+	data->so[ft_strlen(data->so) - 1] = 0;
+	data->we = p->we;
+	data->we[ft_strlen(data->we) - 1] = 0;
+	data->ea = p->ea;
+	data->ea[ft_strlen(data->ea) - 1] = 0;
 }
 
 void	ft_init_img(t_data *data, t_parse *p)
