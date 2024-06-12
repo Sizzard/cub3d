@@ -6,7 +6,7 @@
 /*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:48:07 by aciezadl          #+#    #+#             */
-/*   Updated: 2024/06/11 15:41:03 by aciezadl         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:26:12 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,33 +58,6 @@ int	ft_check_rgb(char *str)
 	free(str_cpy);
 	ft_free_tabtab(rgb);
 	return (0);
-}
-
-/*renvoi 0 si ligne vide ou 2 mots
-return 0 si la ligne est le C ou le F sans compter le nb d'espaces*/
-int	ft_count_words_parse(const char *s, char c, t_parse *p)
-{
-	int	i;
-	int	compteur;
-
-	i = 0;
-	compteur = 0;
-	while (s[i] == c)
-		i++;
-	if (s[i] == '\n' || s[i] == '\0')
-		return (0);
-	if (s[i] == 'C' || s[i] == 'F')
-		return (0);
-	while (s[i])
-	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
-			compteur++;
-		i++;
-	}
-	if (compteur == 2)
-		return (0);
-	else
-		return (ft_printfd(2, "Error\nWRONG DATA: %s\n", p->line), 1);
 }
 
 // return 0 si ligne remplie d'espaces ou commence par '\n' ou '\0'

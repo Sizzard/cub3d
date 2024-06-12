@@ -23,7 +23,7 @@ SRC = src/fabio_parsing.c \
 	src/colision.c \
 	src/draw.c \
 	src/end_process.c \
-	src/mlx.c src/utils.c \
+	src/mlx.c \
 	main.c
 OBJETS = $(SRC:.c=.o)
 

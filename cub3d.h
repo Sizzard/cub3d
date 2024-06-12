@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facarval <facarval@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aciezadl <aciezadl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:12:39 by facarval          #+#    #+#             */
-/*   Updated: 2024/06/11 14:55:20 by facarval         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:25:36 by aciezadl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,9 +194,6 @@ int					ft_char_is_wrong(char c);
 int					ft_char_is_start(char c);
 int					ft_first_line(char **map, int i);
 int					ft_last_line(char **map, int i);
-char				*ft_strrev(char *str);
-void				rev_map_x(t_data *data);
-void				rev_map_y(t_data *data, t_parse *p);
 
 /*						Parsing utils
  */
@@ -205,7 +202,6 @@ void				ft_free_tabtab(char **str);
 int					ft_check_coma(char *str);
 int					ft_check_fd(char *str);
 int					ft_check_rgb(char *str);
-int					ft_count_words_parse(const char *s, char c, t_parse *p);
 int					ft_count_nb_rgb(char *str);
 void				ft_prepare_data(t_parse *p);
 void				ft_clean_struct(t_parse *p);
